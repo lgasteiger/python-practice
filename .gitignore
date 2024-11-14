@@ -1,0 +1,6 @@
+# IDE Specific files
+.vscode/
+
+# Operating system files
+.DS_Store
+
