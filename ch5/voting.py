@@ -6,16 +6,21 @@ def test_age(person_age):
     """
     age_to_vote = 18
     try:
-
-        if person_age >= age_to_vote:
-            print(
-                f"great news, you are old enough to vote"
-            ) # end print()
-            isRegisteredVote()
+        if isNumericInput(person_age):
+            if person_age >= age_to_vote:
+                print(
+                    f"great news, you are old enough to vote"
+                ) # end print()
+                isRegisteredVote()
+            else:
+                print(
+                    f"sorry, you are not eligile to vote yet. the legal age " +
+                    f"to vote in the U.S. is 18"
+                ) # print()
+            # end if
+        # end if
     except TypeError as e:
-        print(
-            
-        ) # end print()
+        print(e)
     except ValueError as e:
         print(e)
     except Exception as e:
@@ -34,7 +39,7 @@ def isNumericInput(ind_age):
         return True
     else:
         raise TypeError(
-            f"!!!!!the value '{test_age}' is not numeric, please try " +
+            f"!!!!!the value '{ind_age}' is not numeric, please try " +
             f"again!!!!!"
         ) # end TypeError() exceptionb
     # end if
@@ -71,7 +76,7 @@ def isRegisteredVote():
 # main app driver starts here #
 ###############################
 print("**********test age of person**********")
-person_age = 21
+person_age = 93
 start_time = time.time()
 test_age(person_age)
 end_time = time.time()
