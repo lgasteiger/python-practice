@@ -22,11 +22,18 @@ def determine_admin_rate():
     group
     """
     try:
+        start_time = time.time()
         age_input = int(input(f"please enter your age: "))
         persons_admin_rate = f"${get_admin_rate(age_input):.2f}"
         print(
             f"with the person's age of '{age_input}', the person's " +
             f"admission rate is: {persons_admin_rate}"
+        ) # end print()
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(
+            f"the time it took in seconds for 'determine_admin_rate()' to " +
+            f"complete was: {elapsed_time}\n"
         ) # end print()
     except TypeError as e:
         print(
@@ -49,11 +56,4 @@ def determine_admin_rate():
 # main program starts here #
 ############################
 print("**********test person's admissions rate**********")
-start_time = time.time()
 determine_admin_rate()
-end_time = time.time()
-elapsed_time = end_time - start_time
-print(
-    f"the time it took in seconds for 'determine_admin_rate()' to complete " +
-    f"was: {elapsed_time}\n"
-) # end print()
