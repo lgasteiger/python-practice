@@ -85,7 +85,7 @@ def test_age():
             # end if
         except TypeError as e:
             print(
-                f"!!!!!TypeError() exception raised, {e}!!!!!"
+                f"!!!!!TypeError() exception raised, {e}!!!!!\n"
             ) # end print()
 
             if not is_continue():
@@ -93,7 +93,7 @@ def test_age():
             # end if
         except ValueError as e:
             print(
-                f"!!!!!ValueError() exception raised, {e}!!!!!"
+                f"!!!!!ValueError() exception raised, {e}!!!!!\n"
             ) # end print()
 
             if not is_continue():
@@ -101,7 +101,7 @@ def test_age():
             # end if
         except Exception as e:
             print(
-                f"!!!!!an unexpected, unhandle exception occured, {e}!!!!!"
+                f"!!!!!an unexpected, unhandle exception occured, {e}!!!!!\n"
             ) # end print()
 
             if not is_continue():
