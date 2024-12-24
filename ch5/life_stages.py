@@ -1,5 +1,3 @@
-import time
-
 def is_continue():
     """
     this function will prompt the user to continue the app's loop process
