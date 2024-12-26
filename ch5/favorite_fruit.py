@@ -1,40 +1,9 @@
-def is_continue():
-    """
-    this function will prompt the user to continue the app's loop process
-    """
-    user_response = input(
-        f"would you like to continue? (y/n) "
-    ) # end user_response
-
-    if user_response != "y" and user_response != "Y" and \
-        user_response != "n" and user_response != "N":
-        raise ValueError(
-            f"only 'y' and 'n' input values are accepted. please try again"
-        ) # end ValueError() exception
-    # end if
-
-    if user_response == "n" or user_response == "N":
-        return False
-    else:
-        return True
-    # end if
-# end is_continue()
-    
-def handle_continue_resp():
-    """
-    this function deals with the input responses to the continue prompt
-    """
-    print()
-# end handle_continue_resp()
-
 def is_valid_choice(keyb_sel):
     """
     this function confirms that the keyboard input is valid
     """
     if not keyb_sel.strip():
-        raise ValueError(
-            f"the input value is blank. please try again"
-        ) # end ValueError() exception
+        raise ValueError(f"the input value is blank. please try again")
     # end if
     
     if keyb_sel.isdigit():
@@ -44,9 +13,7 @@ def is_valid_choice(keyb_sel):
             ) # end ValueError() exception
         # end if
     else:
-        raise ValueError(
-            f"the input value is not numeric. please try again"
-        ) # end ValueError() exception
+        raise ValueError(f"the input value is not numeric. please try again")
     # end if
 
     return True
@@ -56,7 +23,7 @@ def print_fav_fruits(fav_fruits_list):
     """
     this function prints out the current fruit elements in the fav_fruits_list 
     """
-    print(f"the exist list of favorite fruits:")
+    print(f"the existing list of favorite fruits:")
     for index, fruit in enumerate(fav_fruits_list):
         print(
             f"{index + 1}. {fruit}"
@@ -65,31 +32,60 @@ def print_fav_fruits(fav_fruits_list):
     print()
 # end print_fav_fruits(fav_fruits_list)
     
+def del_fav_fruit(curr_fav_fruits):
+    """
+    this function will prompt for a favorite fruit to be removed from the
+    current list of favorite fruits
+    """
+    # todo: prompt for favorite fruit to delete
+    # todo: validate that input response is not blank
+    # todo: validate that input response does not already exist in the current 
+    # todo: favorite fruit list
+# end del_fav_fruit(curr_fav_fruits)
+    
+def add_fav_fruit(curr_fav_fruits):
+    """
+    this function will prompt for the favorite fruit to add and append this
+    fruit to the list of favorite fruits
+    """
+    # todo: verify that new favorite fruit does not exist in current list 
+    
+    try:
+        new_fav_fruit = input(f"please enter the newest favorite fruit: ")
+        if not new_fav_fruit.strip():
+            print(
+                f"!!!!!the new favorite fruit value cannot be blank. " +
+                f"please try again!!!!!\n"
+            ) # end print()
+        else:
+            curr_fav_fruits.append(new_fav_fruit)
+            print()
+        # end if
+    except ValueError as e:
+        print(f"")
+    except Exception as e:
+        print(f"an unexpected, unhandled exception was raised, {e}")
+    # end try...except
+# end add_fav_fruit()
+    
 def prompt_menu_choice(fav_fruits_table):
     """
     this function accepts for a menu selection from the keyboard
     """
-    try:
-        input_choice = input(f"please enter a menu selection: ")
-        if is_valid_choice(input_choice):
-            if int(input_choice) == 1:
-                print_fav_fruits(fav_fruits_table)
-            elif input_choice == 2:
-                print()
-            elif input_choice == 3:
-                print()
-            else: # the keyboard input is 4, representing the choice to exit app
-                return False
-            # end if
-    except ValueError as e:
-        print(
-            f"!!!!!a ValueError() exception was raised, {e}!!!!!"
-        ) # end print()
-    except Exception as e:
-        print(
-            f"!!!!!an unexpected, unhandled exception occured, {e}!!!!!"
-        ) # end print()
-    # end try...except
+
+    input_choice = input(f"please enter a menu selection: ")
+    if is_valid_choice(input_choice):
+        if int(input_choice) == 1:
+            print_fav_fruits(fav_fruits_table)
+        elif int(input_choice) == 2:
+            add_fav_fruit(fav_fruits_table)
+        elif input_choice == 3:
+            print()
+        else: # the keyboard input is 4, representing the choice to exit app
+            print(f"thank you for your time and have an excellent day")
+            return False
+        # end if
+    # end if
 
     return True
 # end prompt_menu_choice()
@@ -107,6 +103,27 @@ def display_fruit_menu():
     print("# 4. exit                            #")
     print("######################################")
 # end display_fruit_menu()
+    
+def is_exit():
+    """
+    this function confirms that the app is to end
+    """
+    while True:
+        acquired_resp = input(f"are you sure you want to exit? (y/n) ").strip()
+        if acquired_resp != "y" and acquired_resp != "Y" and \
+            acquired_resp != "n" and acquired_resp != "N":
+            raise ValueError(
+                f"only 'y' and 'n' values are accepted"
+                ) # end ValueError() exception
+        # end if
+        
+        if acquired_resp == "y" or acquired_resp == "Y":
+            return True
+        else:
+            return False
+        # end if
+    # end while
+# end is_exit(attained_input)
 
 def test_fav_fruits():
     """
@@ -115,66 +132,24 @@ def test_fav_fruits():
     favorite_fruits = [
         'apples', 'bananas', 'oranges', 'kiwi', 'watermelon', 'grapes'
     ] # end favorite_fruits list
-    display_fruit_menu()
 
     while True:
         try:
-            prompt_menu_choice(favorite_fruits)
-
-            try:
-                if is_continue():
-                    display_fruit_menu()
+            display_fruit_menu()
+            if not prompt_menu_choice(favorite_fruits):
+                if is_exit():
+                    break
                 else:
-                    break
+                    print()
                 # end if
-            except ValueError as e:
-                print(
-                    f"!!!!!a ValueError() exception was raised, {e}!!!!!"
-                ) # end print()
-            except Exception as e:
-                print(
-                    f"!!!!!an unhandled, unexpected exception was raised, " + 
-                    f"{e}!!!!!"
-                ) # end print
-            # end try...except
+            # end if
         except ValueError as e:
-            print(
-                f"!!!!!a ValueError() exception was raised, {e}!!!!!"
-            ) #end print()
-
-            try:
-                if not is_continue:
-                    break
-                # end if
-            except ValueError as e:
-                print(
-                    f"!!!!!a ValueError() exception was raised, {e}!!!!!"
-                ) # end print()
-            except Exception as e:
-                print(
-                    f"!!!!!an unhandled, unexpected exception was raised, " + 
-                    f"{e}!!!!!"
-                ) # end print
-            # end try...except
+            print(f"!!!!!a ValueError() exception was raised, {e}!!!!!\n")
         except Exception as e:
             print(
-                f"!!!!!an unhandled, unexpected exception was raised, {e}!!!!!"
+                f"!!!!!an unhandled, unexpected exception was raised, " +
+                f"{e}!!!!!\n"
             ) # end print()
-
-            try:
-                if not is_continue:
-                    break
-                # end if
-            except ValueError as e:
-                print(
-                    f"!!!!!a ValueError() exception was raised, {e}!!!!!"
-                    ) # end print()
-            except Exception as e:
-                print(
-                    f"!!!!!an unhandled, unexpected exception was raised, " + 
-                    f"{e}!!!!!"
-                ) # end print
-            # end try...except
         # end try...catch
     # end while
 # end test_fav_fruit()
