@@ -6,14 +6,14 @@ def is_valid_choice(keyb_sel):
         raise ValueError(f"the input value is blank. please try again")
     # end if
     
-    if keyb_sel.isdigit():
-        if int(keyb_sel) < 1 or int(keyb_sel) > 4:
-            raise ValueError(
-                f"the menu choice entered was invalid. please try again"
-            ) # end ValueError() exception
-        # end if
-    else:
+    if not keyb_sel.strip().isdigit():
         raise ValueError(f"the input value is not numeric. please try again")
+    # end if
+
+    if int(keyb_sel) < 1 or int(keyb_sel) > 4:
+        raise ValueError(
+            f"the menu choice entered was invalid. please try again"
+        ) # end ValueError() exception
     # end if
 
     return True
@@ -23,13 +23,21 @@ def print_fav_fruits(fav_fruits_list):
     """
     this function prints out the current fruit elements in the fav_fruits_list 
     """
-    print(f"the existing list of favorite fruits:")
-    for index, fruit in enumerate(fav_fruits_list):
-        print(
-            f"{index + 1}. {fruit}"
-        ) # end print()
-    # end for...in
-    print()
+
+    #################################################
+    # todo: sort list before printing to the screen #
+    #################################################
+    try:
+        print(f"the existing list of favorite fruits:")
+        for index, fruit in enumerate(fav_fruits_list):
+            print(f"{index + 1}. {fruit}")
+        # end for...in
+        print()
+    except IndexError as e:
+        print(f"!!!!!an IndexError() exception was raised, {e}!!!!!\n")
+    except Exception as e:
+        print(f"!!!!!an unexpected, unhandled exception occurred, {e}!!!!!")
+    # end try...except
 # end print_fav_fruits(fav_fruits_list)
     
 def del_fav_fruit(curr_fav_fruits):
@@ -37,8 +45,10 @@ def del_fav_fruit(curr_fav_fruits):
     this function will prompt for a favorite fruit to be removed from the
     current list of favorite fruits
     """
-    # todo: prompt for favorite fruit to delete
-    # todo: validate that input response is not blank
+    favorite_fruit_remove = input(
+        f"please enter the favorite fruit to be deleted: "
+    ) # end favorite_fruit_remove
+    
     # todo: validate that input response does not already exist in the current 
     # todo: favorite fruit list
 # end del_fav_fruit(curr_fav_fruits)
@@ -48,31 +58,29 @@ def add_fav_fruit(curr_fav_fruits):
     this function will prompt for the favorite fruit to add and append this
     fruit to the list of favorite fruits
     """
-    # todo: verify that new favorite fruit does not exist in current list 
-    
-    try:
-        new_fav_fruit = input(f"please enter the newest favorite fruit: ")
-        if not new_fav_fruit.strip():
-            print(
-                f"!!!!!the new favorite fruit value cannot be blank. " +
-                f"please try again!!!!!\n"
-            ) # end print()
-        else:
-            curr_fav_fruits.append(new_fav_fruit)
-            print()
-        # end if
-    except ValueError as e:
-        print(f"")
-    except Exception as e:
-        print(f"an unexpected, unhandled exception was raised, {e}")
-    # end try...except
+    new_fav_fruit = input(f"please enter the newest favorite fruit: ")
+    if not new_fav_fruit.strip():
+        raise ValueError(
+            f"the new favorite fruit value cannot be blank. " +
+            f"please try again"
+        ) # end ValueError() exception
+    # end if
+
+    if new_fav_fruit in curr_fav_fruits:
+        raise ValueError(
+            f"the new favorite fruit already exists in the current list of " +
+            f"favorite fruits. please try again"
+        ) # end ValueError() exception
+    # end if
+
+    curr_fav_fruits.append(new_fav_fruit)
+    print(f"the '{new_fav_fruit}' fruit was successfully added\n")
 # end add_fav_fruit()
     
 def prompt_menu_choice(fav_fruits_table):
     """
     this function accepts for a menu selection from the keyboard
     """
-
     input_choice = input(f"please enter a menu selection: ")
     if is_valid_choice(input_choice):
         if int(input_choice) == 1:
