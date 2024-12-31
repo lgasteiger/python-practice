@@ -39,18 +39,52 @@ def print_fav_fruits(fav_fruits_list):
         print(f"!!!!!an unexpected, unhandled exception occurred, {e}!!!!!")
     # end try...except
 # end print_fav_fruits(fav_fruits_list)
+        
+def is_blank_input(data_entered):
+    """
+    this function will verify if the data entered is blank. if the data 
+    inputted is confirmed to be blank, then a ValueError() exception is raised
+    """
+    if not data_entered:
+        return True
+    # end if
+# end is_blank_input(data_entered)
     
+def is_exists_list_item(data_entered, fav_fruits_table):
+    """
+    this function will return if the 'data_entered' value exists in the 
+    fav_fruits_table list
+    """
+    if data_entered in fav_fruits_table:
+        return True
+    # end if
+# end is_exists_list_item(data_entered, fav_fruits_table)
+
 def del_fav_fruit(curr_fav_fruits):
     """
     this function will prompt for a favorite fruit to be removed from the
     current list of favorite fruits
     """
-    favorite_fruit_remove = input(
+    fav_fruit_remove = input(
         f"please enter the favorite fruit to be deleted: "
     ) # end favorite_fruit_remove
+    fav_fruit_remove = fav_fruit_remove.strip().lower()
     
-    # todo: validate that input response does not already exist in the current 
-    # todo: favorite fruit list
+    if is_blank_input(fav_fruit_remove):
+        raise ValueError(
+            f"the value inputted cannot be blank. please try again"
+        ) # end ValueError() exception
+    # end if
+
+    if not is_exists_list_item(fav_fruit_remove, curr_fav_fruits):
+        raise ValueError(
+            f"the '{fav_fruit_remove}' does not exist, and it cannot be " +
+            f"removed"
+        ) # end ValueError() exception
+    # end if
+
+    curr_fav_fruits.remove(fav_fruit_remove)
+    print(f"the '{fav_fruit_remove}' fruit was successfully removed\n")
 # end del_fav_fruit(curr_fav_fruits)
     
 def add_fav_fruit(curr_fav_fruits):
@@ -59,14 +93,16 @@ def add_fav_fruit(curr_fav_fruits):
     fruit to the list of favorite fruits
     """
     new_fav_fruit = input(f"please enter the newest favorite fruit: ")
-    if not new_fav_fruit.strip():
+    new_fav_fruit = new_fav_fruit.strip().lower()
+
+    if is_blank_input(new_fav_fruit):
         raise ValueError(
             f"the new favorite fruit value cannot be blank. " +
             f"please try again"
         ) # end ValueError() exception
     # end if
 
-    if new_fav_fruit in curr_fav_fruits:
+    if is_exists_list_item(new_fav_fruit, curr_fav_fruits):
         raise ValueError(
             f"the new favorite fruit already exists in the current list of " +
             f"favorite fruits. please try again"
@@ -87,8 +123,8 @@ def prompt_menu_choice(fav_fruits_table):
             print_fav_fruits(fav_fruits_table)
         elif int(input_choice) == 2:
             add_fav_fruit(fav_fruits_table)
-        elif input_choice == 3:
-            print()
+        elif int(input_choice) == 3:
+            del_fav_fruit(fav_fruits_table)
         else: # the keyboard input is 4, representing the choice to exit app
             print(f"thank you for your time and have an excellent day")
             return False
