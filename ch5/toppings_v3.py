@@ -9,6 +9,19 @@ def is_input_blank(screen_input):
         ) # end ValueError() exception
     # end if
 # end is_input_blank(screen_input)
+    
+def is_valid_flag(flag_entry):
+    """
+    this function will check whether the appropriate "y" or "n" chars were 
+    entered on the screen
+    """
+    if flag_entry != 'y' and flag_entry != 'Y' and \
+        flag_entry != 'n' and flag_entry != 'N':
+        raise ValueError(
+            f"only the 'y' or 'n' response is acceptable"
+        ) # end ValueError() exception
+    # end if
+# end is_valid_flag(flag_entry)
 
 def is_valid_new_topping(topping_input, toppings_list):
     """
@@ -33,7 +46,13 @@ def print_pizza_toppings(toppings_ordered):
     """
     print(f"*****the current list of pizza toppings*****")
     if not toppings_ordered:
-        raise IndexError("there are no toppings requested yet")
+        plain_pizza_ans = input("are you sure you want a plain pizza? (y/n) ")
+        plain_pizza_ans = plain_pizza_ans.strip()
+        is_input_blank(plain_pizza_ans)
+        is_valid_flag(plain_pizza_ans)
+        if plain_pizza_ans == "n" or plain_pizza_ans == "N":
+            raise IndexError("there are no toppings requested yet")
+        # end if
     else:
         sorted_toppings = sorted(toppings_ordered)
         for index, topping in enumerate(sorted_toppings):
@@ -102,19 +121,6 @@ def get_menu_choice():
         return prompt_resp
     # end if
 # end get_menu_choice()
-    
-def is_valid_flag(flag_entry):
-    """
-    this function will check where the appropriate "y" or "n" chars were 
-    entered on the screen
-    """
-    if flag_entry != 'y' and flag_entry != 'Y' and \
-        flag_entry != 'n' and flag_entry != 'N':
-        raise ValueError(
-            f"only the 'y' or 'n' response is acceptable"
-        ) # end ValueError() exception
-    # end if
-# end is_valid_flag(flag_entry)
 
 def is_continue_app():
     """
@@ -154,8 +160,12 @@ def add_toppings(original_toppings):
     new_topping = input("please enter a new pizza topping: ")
     new_topping = new_topping.strip()
     if is_valid_new_topping(new_topping, original_toppings):
-        original_toppings.append(new_topping)
-        print(f"adding '{new_topping}' to the pizza request")
+        if new_topping == "green peppers":
+            print("sorry, we are out of green peppers right now")
+        else:
+            original_toppings.append(new_topping)
+            print(f"adding '{new_topping}' to the pizza request")
+        # end if
     # end if
 # end add_toppings(original_toppings)
 
