@@ -25,10 +25,23 @@ def is_valid_flag(flag_entry):
 
 def is_valid_new_topping(topping_input, toppings_list):
     """
-    this function verifies if the topping entered is valid 
+    this function verifies if the topping entered is valid. first, is new 
+    topping in the present list of acceptable toppings. then, has the 
+    topping already been requested for the current pizza order
     """
-    is_input_blank(topping_input)
+    acceptable_toppings = [
+        'pepperoni', 'sausage', 'extra cheese', 'anchoives', 'pineapple', 
+        'ham' 
+    ] # end acceptable_toppings
 
+    is_input_blank(topping_input)
+    if topping_input not in acceptable_toppings:
+        raise ValueError(
+            f"the '{topping_input}' is not an acceptable pizza topping. " +
+            f"please try again"
+        ) # end ValueError() exception
+    # end if
+        
     if topping_input in toppings_list:
         raise ValueError(
             f"the '{topping_input}' topping was already requested. " +
