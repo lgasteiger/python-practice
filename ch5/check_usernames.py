@@ -71,8 +71,11 @@ def new_usernames_input(new_username, new_username_list):
     this function will add new usernames inputted into a list of new usernames
     with no dups
     """
-    if new_username not in new_username_list:
-        new_username_list.append(new_username.lower())
+    # if new_username is not blank
+    if new_username:
+        if new_username not in new_username_list:
+            new_username_list.append(new_username.lower())
+        # end if
     # end if
 # end add_new_usernames(new_username, new_username_list)
         
