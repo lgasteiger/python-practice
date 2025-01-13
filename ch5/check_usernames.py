@@ -100,6 +100,17 @@ def compare_username_lists(existing_valid_usernames, proposed_new_usernames):
     # end for
 # end compare_usernames_lists(existing_valid_usernames, proposed_new_usernames)
 
+def display_main_menu():
+    """
+    this function will print the current main menu options to the screen
+    """
+    print("****************************************")
+    print("* 1. display exising list of usernames *")
+    print("* 2. add new username                  *")
+    print("* 3. exit                              *")
+    print("****************************************")
+# end display_main_menu()
+
 def test_curr_usernames():
     """
     this function is the driver for testing the currently used website
