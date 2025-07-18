@@ -4,3 +4,6 @@
 # Operating system files
 .DS_Store
 
+# github class tokens
+githubToken.md
+
