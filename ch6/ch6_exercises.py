@@ -24,7 +24,9 @@ def add_person_data(person_list, per_first_name, per_last_name, per_age,
     """
     this function will add a new person data dic to the person list
     """
+    new_person_num = get_person_max(person_list) + 1
     person_data_dic = {
+        "person_num": new_person_num,
         "first_name": per_first_name,
         "last_name": per_last_name,
         "age": per_age,
@@ -33,7 +35,45 @@ def add_person_data(person_list, per_first_name, per_last_name, per_age,
     person_list.append(person_data_dic)
 # end add_person_data()
     
-def get_person_list_idx(person_list, person_full_name):
+def get_person_max(person_list):
+    """
+    this function will calculate a new person number max number
+    """
+    max_num = 0
+    try:
+        for index, person_attr in enumerate(person_list):
+            for key, value in person_attr.items():
+                if key == "person_num":
+                    if value > max_num:
+                        max_num = value
+                    # end if
+                # end if
+            # end for
+        # end for
+                        
+        return max_num
+    except IndexError as e:
+        print(
+            f"!!!!!!there was an index out of range or invalid list index, " +
+            f"{e}!!!!!"
+        ) # end print()
+    except TypeError as e:
+        print(
+            f"!!!!!there was an invalid data type encountered, {e}!!!!!!"
+        ) # end print()
+    except ValueError as e:
+        print(
+            f"!!!!!there was invaid value encountered, {e}!!!!!"
+        ) # end print()
+    except Exception as e:
+        print(
+            f"sorry, but there was an unexpected, unhandled exception " +
+            f"raised, {e}\n"
+        ) # end print()
+    # end try...except
+# end get_person_max()
+    
+def get_person_list_idx(person_list, full_name):
     """
     this function will return the person list index containing the person 
     key/value pair to be updated
@@ -42,20 +82,20 @@ def get_person_list_idx(person_list, person_full_name):
         for index, person_data in enumerate(person_list):
             for key, value in person_data.items():
                 if key == "first_name":
-                    first_name = value
+                    fname = value
                 # end if
-            
+                
                 if key == "last_name":
-                    last_name = value
+                    lname = value
                 # end if
             # end for
-        
-            person_complete_name = f"{last_name}, {first_name}"
-            if person_complete_name.lower() == person_full_name.lower():
+                    
+            complete_name = f"{lname}, {fname}"
+            if complete_name == full_name:
                 return index
             # end if
         # end for
-            
+        
         return -1
     except IndexError as e:
         print(
@@ -83,8 +123,8 @@ def update_person_data(person_list, new_first_name="", new_last_name="",
     """
     this function will update the existing key/value data attributes
     """
-    full_name = f"{new_last_name}, {new_first_name}"
-    person_data_idx = get_person_list_idx(person_list, full_name)
+    legal_name = f"{new_last_name}, {new_first_name}"
+    person_data_idx = get_person_list_idx(person_list, legal_name)
     if person_data_idx >= 0:
         person_data = person_list[person_data_idx]
         if new_first_name != "":
@@ -111,7 +151,12 @@ def update_person_data(person_list, new_first_name="", new_last_name="",
 ###############################
 # main program starting point #
 ###############################
-person_data_dic = { "first_name": "", "last_name": "", "age": 0, "city": "", }
+person_data_dic = {
+    "person_num": 0, 
+    "first_name": "", 
+    "last_name": "", 
+    "age": 0, 
+    "city": "", }
 person_data_list = [person_data_dic]
 
 print("*****test adding new person data to person list*****")
@@ -124,6 +169,7 @@ print_person_list(person_data_list)
 print()
 
 print("*****test updating existing person record data (no match)*****")
+p3_person_id = 0
 p3_first_name = "patrick"
 p3_last_name = "mahomes"
 p3_age = 30
@@ -139,3 +185,4 @@ last_name = "brady"
 city = "tampa bay"
 update_person_data(person_data_list, first_name, last_name, 0, city)
 print_person_list(person_data_list)
+print()
