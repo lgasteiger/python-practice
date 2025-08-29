@@ -10,13 +10,33 @@ def print_person_list(person_list):
     this function will print the contents of the person list with person
     data dictionaries.
     """
-    for index, person_data in enumerate(person_list):
-        print(f"person_{index}:")
-        for key, value in person_data.items():
-            print(f"key -> {key}: value -> {value},")
+    try:
+        for index, person_data in enumerate(person_list):
+            print(f"person_{index}:")
+            for key, value in person_data.items():
+                print(f"key -> {key}: value -> {value},")
+            # end for
+            print()
         # end for
-        print()
-    # end for
+    except IndexError as e:
+        print(
+            f"!!!!!!there was an index out of range or invalid list index, " +
+            f"{e}!!!!!"
+        ) # end print()
+    except TypeError as e:
+        print(
+            f"!!!!!there was an invalid data type encountered, {e}!!!!!!"
+        ) # end print()
+    except ValueError as e:
+        print(
+            f"!!!!!there was invaid value encountered, {e}!!!!!"
+        ) # end print()
+    except Exception as e:
+        print(
+            f"sorry, but there was an unexpected, unhandled exception " +
+            f"raised, {e}\n"
+        ) # end print()
+    # end try...except
 # end print_person_data()
         
 def add_person_data(person_list, per_first_name, per_last_name, per_age, 
@@ -73,26 +93,36 @@ def get_person_max(person_list):
     # end try...except
 # end get_person_max()
     
-def get_person_list_idx(person_list, full_name):
+def get_person_list_idx(person_list, fname, lname, per_num=-1):
     """
     this function will return the person list index containing the person 
-    key/value pair to be updated
+    key/value pair(s) to be updated
     """
     try:
         for index, person_data in enumerate(person_list):
-            for key, value in person_data.items():
-                if key == "first_name":
-                    fname = value
-                # end if
+            if per_num >= 0:
+                for key, value in person_data.items():
+                    if key == "person_num":
+                        if value == per_num:
+                            return index
+                        # end if
+                    # end if
+                # end for
+            else:
+                full_name = f"{lname}, {fname}"
+                for key, value in person_data.items():
+                    if key == "first_name":
+                        first_name = value
+                    # end if
                 
-                if key == "last_name":
-                    lname = value
-                # end if
-            # end for
+                    if key == "last_name":
+                        last_name = value
+                    # end if
+                # end for
                     
-            complete_name = f"{lname}, {fname}"
-            if complete_name == full_name:
-                return index
+                legal_name = f"{last_name}, {first_name}"
+                if legal_name == full_name:
+                    return index
             # end if
         # end for
         
@@ -119,12 +149,13 @@ def get_person_list_idx(person_list, full_name):
 # end get_person_list_idx()
     
 def update_person_data(person_list, new_first_name="", new_last_name="", 
-                       new_age=0, new_city=""):
+                       new_age=0, new_city="", person_id=-1):
     """
-    this function will update the existing key/value data attributes
+    this function updates the existing person data dictionary key/value pairs 
     """
-    legal_name = f"{new_last_name}, {new_first_name}"
-    person_data_idx = get_person_list_idx(person_list, legal_name)
+    person_data_idx = get_person_list_idx(person_list, new_first_name,
+                                          new_last_name, person_id)
+    
     if person_data_idx >= 0:
         person_data = person_list[person_data_idx]
         if new_first_name != "":
@@ -147,6 +178,21 @@ def update_person_data(person_list, new_first_name="", new_last_name="",
                         new_city)
     # end if
 # end update_person_data()
+        
+def delete_person_data_rec(person_list, del_first_name, del_last_name, 
+                           person_id=-1):
+    """
+    this function will delete a person data dictionary record in the person
+    list, if it exists
+    """
+    person_data_idx = get_person_list_idx(person_list, del_first_name,
+                                          del_last_name, person_id)
+    if person_data_idx >= 0:
+        person_list.pop(person_data_idx)
+    else:
+        print("!!!!!no record to delete, person data record does not ")
+        print("exist!!!!!")
+# end delete_person_data_rec()
 
 ###############################
 # main program starting point #
@@ -169,20 +215,43 @@ print_person_list(person_data_list)
 print()
 
 print("*****test updating existing person record data (no match)*****")
-p3_person_id = 0
 p3_first_name = "patrick"
 p3_last_name = "mahomes"
 p3_age = 30
 p3_city = "kansas city"
-update_person_data(person_data_list, p3_first_name, p3_last_name, p3_age, 
-                   p3_city)
+update_person_data(person_data_list, p3_first_name, p3_last_name,
+                   p3_age, p3_city)
 print_person_list(person_data_list)
 print()
 
-print("******test updating existing person record data (with match)******")
+print("******test updating existing person record data by person_id ")
+print("(with match)******")
+person_num = 1
 first_name = "tom"
 last_name = "brady"
+age = 0
 city = "tampa bay"
-update_person_data(person_data_list, first_name, last_name, 0, city)
+update_person_data(person_data_list, first_name, last_name, age, city,
+                   person_num)
 print_person_list(person_data_list)
 print()
+
+print("*****test updating existing person record data by person full name*****")
+first_name = "tom"
+last_name = "brady"
+city = ""
+age = 55
+update_person_data(person_data_list, first_name, last_name, age, city)
+print_person_list(person_data_list)
+print()
+
+print("*****test deleting person list person data dict element with match*****")
+first_name = ""
+last_name = ""
+per_num = 0
+delete_person_data_rec(person_data_list, first_name, last_name, per_num)
+print_person_list(person_data_list)
+print()
+
+# print("*****test removing person list person data dict element with no ")
+# print("matches*****")
