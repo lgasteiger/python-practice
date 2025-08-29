@@ -1,5 +1,5 @@
 """
-filename: ch6_exercises.py
+filename: ch6-1_exercises.py
 
 author: gasteiger, Lg
 version: 1.0
@@ -252,6 +252,3 @@ per_num = 0
 delete_person_data_rec(person_data_list, first_name, last_name, per_num)
 print_person_list(person_data_list)
 print()
-
-# print("*****test removing person list person data dict element with no ")
-# print("matches*****")
