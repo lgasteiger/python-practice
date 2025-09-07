@@ -19,6 +19,7 @@ def get_user_num_info():
         else:
             sanitized_input = user_input.strip().lower().split()
             break
+        # end if
     # end while
     
     return sanitized_input
