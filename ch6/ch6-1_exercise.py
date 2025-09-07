@@ -1,43 +1,11 @@
+import ch6_fun_library
+
 """
 filename: ch6-1_exercises.py
 
 author: gasteiger, Lg
 version: 1.0
 """
-
-def print_person_list(person_list):
-    """
-    this function will print the contents of the person list with person
-    data dictionaries.
-    """
-    try:
-        for index, person_data in enumerate(person_list):
-            print(f"person_{index}:")
-            for key, value in person_data.items():
-                print(f"key -> {key}: value -> {value},")
-            # end for
-            print()
-        # end for
-    except IndexError as e:
-        print(
-            f"!!!!!!there was an index out of range or invalid list index, " +
-            f"{e}!!!!!"
-        ) # end print()
-    except TypeError as e:
-        print(
-            f"!!!!!there was an invalid data type encountered, {e}!!!!!!"
-        ) # end print()
-    except ValueError as e:
-        print(
-            f"!!!!!there was invaid value encountered, {e}!!!!!"
-        ) # end print()
-    except Exception as e:
-        print(
-            f"sorry, but there was an unexpected, unhandled exception " +
-            f"raised, {e}\n"
-        ) # end print()
-    # end try...except
-# end print_person_data()
         
 def add_person_data(person_list, per_first_name, per_last_name, per_age, 
                     per_city):
@@ -211,7 +179,7 @@ p2_last_name = "brady"
 p2_age = 50
 p2_city = "boston"
 add_person_data(person_data_list, p2_first_name, p2_last_name, p2_age, p2_city)
-print_person_list(person_data_list)
+ch6_fun_library.print_list_items(person_data_list, True)
 print()
 
 print("*****test updating existing person record data (no match)*****")
@@ -221,7 +189,7 @@ p3_age = 30
 p3_city = "kansas city"
 update_person_data(person_data_list, p3_first_name, p3_last_name,
                    p3_age, p3_city)
-print_person_list(person_data_list)
+ch6_fun_library.print_list_items(person_data_list, True)
 print()
 
 print("******test updating existing person record data by person_id ")
@@ -233,9 +201,10 @@ age = 0
 city = "tampa bay"
 update_person_data(person_data_list, first_name, last_name, age, city,
                    person_num)
-print_person_list(person_data_list)
+ch6_fun_library.print_list_items(person_data_list, True)
 print()
 
+"""
 print("*****test updating existing person record data by person full name*****")
 first_name = "tom"
 last_name = "brady"
@@ -252,3 +221,4 @@ per_num = 0
 delete_person_data_rec(person_data_list, first_name, last_name, per_num)
 print_person_list(person_data_list)
 print()
+"""
