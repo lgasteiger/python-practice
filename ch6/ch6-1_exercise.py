@@ -170,7 +170,8 @@ person_data_dic = {
     "first_name": "", 
     "last_name": "", 
     "age": 0, 
-    "city": "", }
+    "city": "",
+} # end person_data_dic 
 person_data_list = [person_data_dic]
 
 print("*****test adding new person data to person list*****")
