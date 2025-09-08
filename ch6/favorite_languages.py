@@ -45,6 +45,17 @@ def check_friend_keys(dic_name):
         # end if
     # end for
 # end check_friend_keys(dic_name)
+            
+def print_fav_lang_values(prog_lang_dict):
+    """
+    this function will print the current friends' programming languages to
+    the screen
+    """
+    print("the following programming languages have been mentioned:")
+    for language in prog_lang_dict.values():
+        print(language.title())
+    # end for
+# end print_fav_lang_values()
 
 ############################
 # main program starts here #
@@ -74,3 +85,8 @@ print()
 
 print("*****test working with dictionary keys comparisons*****")
 check_friend_keys(favorite_languages)
+print()
+
+print("*****test the Python 3 dictionary values function*****")
+print_fav_lang_values(favorite_languages)
+print()
