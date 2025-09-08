@@ -24,11 +24,12 @@ def get_lang_keys(dic_name):
 def check_friend_keys(dic_name):
     """
     this function will determine if certain friends are "keys" in the dic_name
-    Python 3 dictionary data structure
+    Python 3 dictionary data structure and print the friends in sorted order
+    to the screen 
     """
     curr_friends = ['phil', 'sarah']
 
-    for friend_name in dic_name.keys():
+    for friend_name in sorted(dic_name.keys()):
         print(f"hi {friend_name.title()}")
 
         if friend_name in curr_friends:
@@ -37,6 +38,10 @@ def check_friend_keys(dic_name):
                 f"\t{friend_name.title()}, i see you love the {fav_lang} " +
                 f"programming language!"
             ) # end print()
+        # end if
+            
+        if friend_name not in curr_friends:
+            print(f"{friend_name.title()}, please retake our poll")
         # end if
     # end for
 # end check_friend_keys(dic_name)
