@@ -56,7 +56,7 @@ def print_fav_lang_values(prog_lang_dict):
         print(language.title())
     # end for
 # end print_fav_lang_values()
-        
+
 def print_unique_fav_langs(prog_lang_dict):
     """
     this funcion will print only unique data values in the prog_lang_dict to
@@ -103,7 +103,8 @@ print()
 
 print(
     "*****test the friends' programming languages dictionary with the set()" +
-    "function to prevent duplicate data values from appearing on the screen"
+    "function to prevent duplicate data values from appearing on the screen" +
+    "******"
 ) # end print()
 print_unique_fav_langs(favorite_languages)
 print()

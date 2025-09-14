@@ -53,7 +53,13 @@ description: this function will print the key/value pairs of the dictionary
              to the screen
 """
 def print_dict_elem(dict_elements):
-    for key, value in dict_elements.items():
-        print(f"key -> {key}: value -> {value},")
-    # end for
+    try:
+        for key, value in dict_elements.items():
+            print(f"key -> {key}: value -> {value},")
+        # end for
+    except ValueError as e:
+        """"""
+    except Exception as e:
+        print(f"!!!!!sorry, an unexpected error occurred, {e}!!!!!")
+    # end try...except
 # end print_dict_elem()
