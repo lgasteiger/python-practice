@@ -1,4 +1,5 @@
 import ch6_fun_library
+import random
 
 """
 filename: many_aliens.py
@@ -50,10 +51,29 @@ def create_more_aliens(aliens_lst, range_num):
     this function will create alien dicts with random attributes and add them 
     to the aliens_lst upto range_num
     """
-    for alien_num in range(range_num):
-        new_alien = create_initial_alien()
-        add_alien_creature(new_alien, aliens_lst)
-    # end for
+    avail_colors = ["green", "red", "yellow", "white", "blue"]
+    avail_speeds = ["slow", "medium", "fast", "hyper_fast"]
+
+    try:
+        for alien_num in range(range_num):
+            random_color_int = random.randint(0, 4)
+            random_color = avail_colors[random_color_int]
+
+            random_pts_total = random.randint(1, 50)        
+        
+            random_speed_int = random.randint(0, 3)
+            random_speed = avail_speeds[random_speed_int]
+
+            new_alien = create_initial_alien(random_color, random_pts_total, random_speed)
+            add_alien_creature(new_alien, aliens_lst)
+        # end for
+            
+        print(f"+++++the total number of existing aliens is: {len(aliens_lst)}\n")
+    except IndexError as e:
+        print(f"!!!!!there was an out of range index error that occurred, {e}!!!!!")
+    except Exception as e:
+        print(f"!!!!!there was an unhandled exception that occured, {e}!!!!!")
+    # end try...except
 # end create_more_aliens()
         
 def print_aliens_subset(alien_lst, element_count):
@@ -75,7 +95,7 @@ print("*****test creating and adding a few initial alien dicts to the aliens lis
 test_initial_aliens(aliens_list)
 print()
 
-print("*****test creating an additional 30 alien dicts and printing only a subset of 5 of the alien dicts")
+print("*****test creating an additional 30 alien dicts and printing only a subset of the alien dicts")
 create_more_aliens(aliens_list, 30)
-print_aliens_subset(aliens_list, 5)
+print_aliens_subset(aliens_list, 25)
 print()
