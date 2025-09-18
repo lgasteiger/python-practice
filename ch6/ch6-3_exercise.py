@@ -16,14 +16,12 @@ def is_continue():
     try:
         while True:
             user_response = input(
-                 "would you like to continue entering programming topics? " +
-                 "(y/n) "
+                 "would you like to continue entering programming topics? (y/n) "
             ) # end input()
 
             if user_response == "":
                 print(
-                    "!!!!!please enter an input. the input cannot be " +
-                    "blank!!!!!"
+                    "!!!!!please enter an input. the input cannot be blank!!!!!"
                 ) # end print()
             elif user_response == "y" or user_response == "Y":
                 return True
@@ -45,14 +43,12 @@ def get_new_prog_concept():
     try:
         while True:
             user_input = input(
-                "please enter the recently learned programming concept " +
-                "and definition: "
+                "please enter the recently learned programming concept and definition: "
             ) # end input()
 
             if user_input == "":
                 print(
-                    "!!!!!sorry, no value was recorded as input. value can " +
-                    "not be blank!!!!!"
+                    "!!!!!sorry, no value was recorded as input. value can not be blank!!!!!"
                 ) # end print()
             else:
                 sanitized_input = user_input.strip().lower().split(':')
@@ -77,8 +73,7 @@ def add_new_prog_concept(gloss_dict, new_sw_topic):
         gloss_dict[sw_topic_key] = sw_topic_value
     except IndexError as e:
         print(
-            f"!!!!!!there was an index out of range or invalid list index, " +
-            f"{e}!!!!!"
+            f"!!!!!!there was an index out of range or invalid list index, {e}!!!!!"
         ) # end print()
     except Exception as e:
         print(f"!!!!!an unexpected error occurred, {e}!!!!!")

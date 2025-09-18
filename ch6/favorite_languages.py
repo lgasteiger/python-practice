@@ -102,7 +102,7 @@ print_fav_lang_values(favorite_languages)
 print()
 
 print(
-    "*****test the friends' programming languages dictionary with the set()" +
+    "*****test the friends' programming languages dictionary with the set() " +
     "function to prevent duplicate data values from appearing on the screen" +
     "******"
 ) # end print()

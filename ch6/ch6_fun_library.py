@@ -25,8 +25,7 @@ def print_list_items(list_elements, is_dict_item=False):
         # end if
     except IndexError as e:
         print(
-            f"!!!!!!there was an index out of range or invalid list index, " +
-            f"{e}!!!!!"
+            f"!!!!!!there was an index out of range or invalid list index, {e}!!!!!"
         ) # end print()
     except TypeError as e:
         print(
@@ -38,8 +37,7 @@ def print_list_items(list_elements, is_dict_item=False):
         ) # end print()
     except Exception as e:
         print(
-            f"sorry, but there was an unexpected, unhandled exception " +
-            f"raised, {e}\n"
+            f"sorry, but there was an unexpected, unhandled exception raised, {e}\n"
         ) # end print()
     # end try...except
     
@@ -58,7 +56,7 @@ def print_dict_elem(dict_elements):
             print(f"key -> {key}: value -> {value},")
         # end for
     except ValueError as e:
-        """"""
+        print(f"!!!!!sorry, but a ValueError occurred, {e}!!!!!")
     except Exception as e:
         print(f"!!!!!sorry, an unexpected error occurred, {e}!!!!!")
     # end try...except

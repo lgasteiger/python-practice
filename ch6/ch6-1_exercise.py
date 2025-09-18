@@ -7,8 +7,7 @@ author: gasteiger, Lg
 version: 1.0
 """
         
-def add_person_data(person_list, per_first_name, per_last_name, per_age, 
-                    per_city):
+def add_person_data(person_list, per_first_name, per_last_name, per_age, per_city):
     """
     this function will add a new person data dic to the person list
     """
@@ -42,8 +41,7 @@ def get_person_max(person_list):
         return max_num
     except IndexError as e:
         print(
-            f"!!!!!!there was an index out of range or invalid list index, " +
-            f"{e}!!!!!"
+            f"!!!!!!there was an index out of range or invalid list index, {e}!!!!!"
         ) # end print()
     except TypeError as e:
         print(
@@ -55,8 +53,7 @@ def get_person_max(person_list):
         ) # end print()
     except Exception as e:
         print(
-            f"sorry, but there was an unexpected, unhandled exception " +
-            f"raised, {e}\n"
+            f"sorry, but there was an unexpected, unhandled exception raised, {e}\n"
         ) # end print()
     # end try...except
 # end get_person_max()
@@ -97,8 +94,7 @@ def get_person_list_idx(person_list, fname, lname, per_num=-1):
         return -1
     except IndexError as e:
         print(
-            f"!!!!!!there was an index out of range or invalid list index, " +
-            f"{e}!!!!!"
+            f"!!!!!!there was an index out of range or invalid list index, {e}!!!!!"
         ) # end print()
     except TypeError as e:
         print(
@@ -110,19 +106,16 @@ def get_person_list_idx(person_list, fname, lname, per_num=-1):
         ) # end print()
     except Exception as e:
         print(
-            f"sorry, but there was an unexpected, unhandled exception " +
-            f"raised, {e}\n"
+            f"sorry, but there was an unexpected, unhandled exception raised, {e}\n"
         ) # end print()
     # end try...except
 # end get_person_list_idx()
     
-def update_person_data(person_list, new_first_name="", new_last_name="", 
-                       new_age=0, new_city="", person_id=-1):
+def update_person_data(person_list, new_first_name="", new_last_name="", new_age=0, new_city="", person_id=-1):
     """
     this function updates the existing person data dictionary key/value pairs 
     """
-    person_data_idx = get_person_list_idx(person_list, new_first_name,
-                                          new_last_name, person_id)
+    person_data_idx = get_person_list_idx(person_list, new_first_name, new_last_name, person_id)
     
     if person_data_idx >= 0:
         person_data = person_list[person_data_idx]
@@ -142,19 +135,16 @@ def update_person_data(person_list, new_first_name="", new_last_name="",
             person_data["city"] = new_city
         # end if
     else:
-        add_person_data(person_list, new_first_name, new_last_name, new_age, 
-                        new_city)
+        add_person_data(person_list, new_first_name, new_last_name, new_age, new_city)
     # end if
 # end update_person_data()
         
-def delete_person_data_rec(person_list, del_first_name, del_last_name, 
-                           person_id=-1):
+def delete_person_data_rec(person_list, del_first_name, del_last_name, person_id=-1):
     """
     this function will delete a person data dictionary record in the person
     list, if it exists
     """
-    person_data_idx = get_person_list_idx(person_list, del_first_name,
-                                          del_last_name, person_id)
+    person_data_idx = get_person_list_idx(person_list, del_first_name, del_last_name, person_id)
     if person_data_idx >= 0:
         person_list.pop(person_data_idx)
     else:
@@ -188,8 +178,7 @@ p3_first_name = "patrick"
 p3_last_name = "mahomes"
 p3_age = 30
 p3_city = "kansas city"
-update_person_data(person_data_list, p3_first_name, p3_last_name,
-                   p3_age, p3_city)
+update_person_data(person_data_list, p3_first_name, p3_last_name, p3_age, p3_city)
 ch6_fun_library.print_list_items(person_data_list, True)
 print()
 
@@ -200,8 +189,7 @@ first_name = "tom"
 last_name = "brady"
 age = 0
 city = "tampa bay"
-update_person_data(person_data_list, first_name, last_name, age, city,
-                   person_num)
+update_person_data(person_data_list, first_name, last_name, age, city, person_num)
 ch6_fun_library.print_list_items(person_data_list, True)
 print()
 
