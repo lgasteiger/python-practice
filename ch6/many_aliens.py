@@ -52,7 +52,7 @@ def create_more_aliens(aliens_lst, range_num):
     to the aliens_lst upto range_num
     """
     avail_colors = ["green", "red", "yellow", "white", "blue"]
-    avail_speeds = ["slow", "medium", "fast", "hyper_fast"]
+    avail_speeds = ["slow", "medium", "fast", "hyper-fast"]
 
     try:
         for alien_num in range(range_num):
@@ -80,11 +80,63 @@ def print_aliens_subset(alien_lst, element_count):
     """
     this function will print the first element_count of items in alient_list
     """
-    for idx, alien in enumerate(alien_lst[:element_count]):
-        print(f"dict_{idx}")
-        ch6_fun_library.print_dict_elem(alien)
-    # end for
+    try:
+        for idx, alien in enumerate(alien_lst[:element_count]):
+            print(f"dict_{idx}")
+            ch6_fun_library.print_dict_elem(alien)
+        # end for
+    except IndexError as e:
+        print(f"!!!!!there was an out of range index error that occurred, {e}!!!!!")
+    except Exception as e:
+        print(f"!!!!!there was an unhandled exception that occured, {e}!!!!!")
+    # end try...except
 # end print_aliens_subset()
+        
+def update_first_aliens(alien_lst):
+    """
+    this function will update the first 3 alien dicts
+    """
+    try:
+        for alien in alien_lst[:3]:
+            if alien["color"] == "green":
+                alien["color"] = "yellow"
+                alien["speed"] = "medium"
+                alien["points"] = 10
+            elif alien["color"] == "red":
+                alien["color"] = "yellow"
+                alien["speed"] = "high"
+                alien["points"] = 15
+            # end if
+        # end for
+    except IndexError as e:
+        print(f"!!!!!an IndexError exception occurred, {e}!!!!!")
+    except Exception as e:
+        print(f"!!!!!an unexpected, unhandled exception occurred, {e}!!!!!")
+    # end try...exception
+# end update_first_aliens()
+
+def update_last_aliens(alien_lst):
+    """
+    this function will update the last 3 alien dicts
+    """
+    try:
+        for alien in alien_lst[-3:]:
+            if alien["color"] == "green":
+                alien["color"] = "yellow"
+                alien["speed"] = "hyper-fast"
+                alien["points"] = 10
+            elif alien["color"] == "blue":
+                alien["color"] = "yellow"
+                alien["speed"] = "slow"
+                alien["points"] = 20
+            # end if
+        # end for
+    except IndexError as e:
+        print(f"!!!!!an IndexError exception occurred, {e}!!!!!")
+    except Exception as e:
+        print(f"!!!!!an unexpected, unhandled exception occurred, {e}!!!!!")
+    # end try...except
+# end update_last_aliens()
 
 ########################
 # main app starts here #
@@ -97,5 +149,15 @@ print()
 
 print("*****test creating an additional 30 alien dicts and printing only a subset of the alien dicts")
 create_more_aliens(aliens_list, 30)
-print_aliens_subset(aliens_list, 25)
+print_aliens_subset(aliens_list, 10)
+print()
+
+print("*****test update first three alient dictionaries*****")
+update_first_aliens(aliens_list)
+ch6_fun_library.print_list_items(aliens_list, True)
+print()
+
+print("*****test update last three alien dictionaries*****")
+update_last_aliens(aliens_list)
+ch6_fun_library.print_list_items(aliens_list, True)
 print()
