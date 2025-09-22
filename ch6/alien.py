@@ -1,3 +1,11 @@
+"""
+filename: alien.py
+
+author: gasteiger, L g
+date: 2025-09-01
+version: 1.0
+"""
+
 def get_dic_value(dic_name, dic_key):
     """
     this function returns the alien's points

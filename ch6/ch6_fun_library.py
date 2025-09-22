@@ -53,7 +53,14 @@ description: this function will print the key/value pairs of the dictionary
 def print_dict_elem(dict_elements):
     try:
         for key, value in dict_elements.items():
-            print(f"key -> {key}: value -> {value},")
+            if isinstance(value, list):
+                print(f"key -> {key}: value ->")
+                for index, item in enumerate(value):
+                    print(f"\t{index}. {item}")
+                # end for
+            else:
+                print(f"key -> {key}: value -> {value},")
+            # end if
         # end for
     except ValueError as e:
         print(f"!!!!!sorry, but a ValueError occurred, {e}!!!!!")
