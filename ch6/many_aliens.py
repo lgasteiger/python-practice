@@ -43,7 +43,7 @@ def test_initial_aliens(aliens):
     add_alien_creature(alien_1, aliens)
     alien_2 = create_initial_alien("red", 15, "fast")
     add_alien_creature(alien_2, aliens)
-    ch6_fun_library.print_list_items(aliens_list, True)
+    ch6_fun_library.print_list_items(aliens_list)
 # end test_initial_aliens()
 
 def create_more_aliens(aliens_lst, range_num):
@@ -154,10 +154,10 @@ print()
 
 print("*****test update first three alient dictionaries*****")
 update_first_aliens(aliens_list)
-ch6_fun_library.print_list_items(aliens_list, True)
+ch6_fun_library.print_list_items(aliens_list)
 print()
 
 print("*****test update last three alien dictionaries*****")
 update_last_aliens(aliens_list)
-ch6_fun_library.print_list_items(aliens_list, True)
+ch6_fun_library.print_list_items(aliens_list)
 print()

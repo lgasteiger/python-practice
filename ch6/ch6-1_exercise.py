@@ -170,7 +170,7 @@ p2_last_name = "brady"
 p2_age = 50
 p2_city = "boston"
 add_person_data(person_data_list, p2_first_name, p2_last_name, p2_age, p2_city)
-ch6_fun_library.print_list_items(person_data_list, True)
+ch6_fun_library.print_list_items(person_data_list)
 print()
 
 print("*****test updating existing person record data (no match)*****")
@@ -179,7 +179,7 @@ p3_last_name = "mahomes"
 p3_age = 30
 p3_city = "kansas city"
 update_person_data(person_data_list, p3_first_name, p3_last_name, p3_age, p3_city)
-ch6_fun_library.print_list_items(person_data_list, True)
+ch6_fun_library.print_list_items(person_data_list)
 print()
 
 print("******test updating existing person record data by person_id ")
@@ -190,7 +190,7 @@ last_name = "brady"
 age = 0
 city = "tampa bay"
 update_person_data(person_data_list, first_name, last_name, age, city, person_num)
-ch6_fun_library.print_list_items(person_data_list, True)
+ch6_fun_library.print_list_items(person_data_list)
 print()
 
 print("*****test updating existing person record data by person full name*****")
@@ -199,7 +199,7 @@ last_name = "brady"
 city = ""
 age = 55
 update_person_data(person_data_list, first_name, last_name, age, city)
-ch6_fun_library.print_list_items(person_data_list, True)
+ch6_fun_library.print_list_items(person_data_list)
 print()
 
 print("*****test deleting person list person data dict element with match*****")
@@ -207,5 +207,5 @@ first_name = ""
 last_name = ""
 per_num = 0
 delete_person_data_rec(person_data_list, first_name, last_name, per_num)
-ch6_fun_library.print_list_items(person_data_list, True)
+ch6_fun_library.print_list_items(person_data_list)
 print()

@@ -12,17 +12,17 @@ date: 2025-09-01
 description: this function will print out all the items presently in the list
              to the screen 
 """
-def print_list_items(list_elements, is_dict_item=False):
+def print_list_items(list_elements):
     try:
-        if is_dict_item == False:
-            for index, elem in enumerate(list_elements):
+        for index, elem in enumerate(list_elements):
+            if isinstance(elem, dict):
+                for index, dict_elem in enumerate(list_elements):
+                    print(f"dict_{index}:")
+                    print_dict_elem(dict_elem)
+                # end for
+            else:
                 print(f"{index}. {elem}")
-            # end for
-        else:
-            for index, dict_elem in enumerate(list_elements):
-                print(f"dict_{index}:")
-                print_dict_elem(dict_elem) 
-        # end if
+        # end for
     except IndexError as e:
         print(
             f"!!!!!!there was an index out of range or invalid list index, {e}!!!!!"
