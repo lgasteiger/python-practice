@@ -29,6 +29,8 @@ def is_continue():
                 return False
             # end if
         # end while
+    except ValueError as e:
+        print(f"!!!!!a ValueError occured, {e}!!!!!")
     except Exception as e:
         print(f"!!!!!an unexpected error occurred, {e}!!!!!")
     # end try...except

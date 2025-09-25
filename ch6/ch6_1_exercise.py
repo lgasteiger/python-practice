@@ -1,7 +1,7 @@
 import ch6_fun_library
 
 """
-filename: ch6-1_exercises.py
+filename: ch6_1_exercises.py
 
 author: gasteiger, Lg
 version: 1.0

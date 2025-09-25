@@ -58,6 +58,11 @@ def print_dict_elem(dict_elements):
                 for index, item in enumerate(value):
                     print(f"\t{index}. {item}")
                 # end for
+            elif isinstance(value, dict):
+                print(f"key -> {key}")
+                for key, contents in value.items():
+                    print(f"\tkey -> {key}: value -> {contents}")
+                # end for
             else:
                 print(f"key -> {key}: value -> {value},")
             # end if
@@ -68,3 +73,33 @@ def print_dict_elem(dict_elements):
         print(f"!!!!!sorry, an unexpected error occurred, {e}!!!!!")
     # end try...except
 # end print_dict_elem()
+
+def is_continue():
+    """
+    this function prompts the user if they wish to continue. if the input
+    response from the user is 'y' or 'Y', then the app will continue.
+    otherwise, the app will end
+    """
+    try:
+        while True:
+            user_response = input(
+                 "would you like to continue with the app? (y/n) "
+            ) # end input()
+
+            if user_response == "":
+                print(
+                    "!!!!!please enter an input. the input cannot be blank!!!!!"
+                ) # end print()
+            elif user_response == "y" or user_response == "Y":
+                return True
+            else:
+                return False
+            # end if
+        # end while
+    except ValueError as e:
+        print(f"!!!!!a ValueError exception has occurred, {e}!!!!!")
+    except Exception as e:
+        print(f"!!!!!an unexpected, unhandled error occurred, {e}!!!!!")
+    # end try...except
+    # end while
+# end is_continue()
