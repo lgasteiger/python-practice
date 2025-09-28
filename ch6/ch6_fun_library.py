@@ -103,3 +103,54 @@ def is_continue():
     # end try...except
     # end while
 # end is_continue()
+
+def add_person_data(person_list, per_first_name, per_last_name, per_age, per_city):
+    """
+    this function will add a new person data dic to the person list
+    """
+    new_person_num = get_person_max(person_list) + 1
+    person_data_dic = {
+        "person_num": new_person_num,
+        "first_name": per_first_name,
+        "last_name": per_last_name,
+        "age": per_age,
+        "city": per_city,
+    }
+    person_list.append(person_data_dic)
+# end add_person_data()
+
+def get_person_max(person_list):
+    """
+    this function will calculate a new person number max number
+    """
+    max_num = 0
+    try:
+        for index, person_attr in enumerate(person_list):
+            for key, value in person_attr.items():
+                if key == "person_num":
+                    if value > max_num:
+                        max_num = value
+                    # end if
+                # end if
+            # end for
+        # end for
+                        
+        return max_num
+    except IndexError as e:
+        print(
+            f"!!!!!!there was an index out of range or invalid list index, {e}!!!!!"
+        ) # end print()
+    except TypeError as e:
+        print(
+            f"!!!!!there was an invalid data type encountered, {e}!!!!!!"
+        ) # end print()
+    except ValueError as e:
+        print(
+            f"!!!!!there was invaid value encountered, {e}!!!!!"
+        ) # end print()
+    except Exception as e:
+        print(
+            f"sorry, but there was an unexpected, unhandled exception raised, {e}\n"
+        ) # end print()
+    # end try...except
+# end get_person_max()
