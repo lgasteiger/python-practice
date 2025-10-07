@@ -1,46 +1,33 @@
-"""
-filename: ch6_fun_library.py
-
-author: gasteiger, Lg
-version: 1.0
-"""
-
-"""
-name: print_list_items(list_elements, is_dict_item=False)
-author: gasteiger, Lg
-date: 2025-09-01
-description: this function will print out all the items presently in the list
-             to the screen 
-"""
 def print_list_items(list_elements):
+    """
+    Prints out the elements in a list with any nested lists or dictionaries
+    to the screen
+
+    Args:
+        list_elements (List): The List data structure containing the elements
+        to be printed to the screen.
+
+    Returns: 
+        None
+
+    Raises:
+        IndexError: If there is an index out of range when looping through the
+    """
     try:
         for index, elem in enumerate(list_elements):
             if isinstance(elem, dict):
-                for index, dict_elem in enumerate(list_elements):
-                    print(f"dict_{index}:")
-                    print_dict_elem(dict_elem)
-                # end for
+                print(f"dict_{index}:")
+                print_dict_elem(elem)
             else:
                 print(f"{index}. {elem}")
         # end for
     except IndexError as e:
-        print(
-            f"!!!!!!there was an index out of range or invalid list index, {e}!!!!!"
-        ) # end print()
-    except TypeError as e:
-        print(
-            f"!!!!!there was an invalid data type encountered, {e}!!!!!!"
-        ) # end print()
-    except ValueError as e:
-        print(
-            f"!!!!!there was invaid value encountered, {e}!!!!!"
-        ) # end print()
+        print(f"!!!!!!there was an index out of range or invalid list index, {e}!!!!!\n")
     except Exception as e:
         print(
-            f"sorry, but there was an unexpected, unhandled exception raised, {e}\n"
+            f"!!!!!sorry, but there was an unexpected, unhandled exception raised, {e}!!!!!\n"
         ) # end print()
     # end try...except
-    
 # end print_list_items()
 
 """
