@@ -48,10 +48,10 @@ def print_dict_elem(dict_elements):
             elif isinstance(value, dict):
                 print(f"key -> {key}")
                 for key, contents in value.items():
-                    print(f"\tkey -> {key}: value -> {contents}")
+                    print(f"\tkey -> {key.title()}: value -> {contents.title()}")
                 # end for
             else:
-                print(f"key -> {key}: value -> {value},")
+                print(f"\tkey -> {key.title()}: value -> {value.title()},")
             # end if
         # end for
     except ValueError as e:
