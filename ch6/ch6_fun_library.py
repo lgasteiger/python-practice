@@ -12,6 +12,7 @@ def print_list_items(list_elements):
 
     Raises:
         IndexError: If there is an index out of range when looping through the
+        List
     """
     try:
         for index, elem in enumerate(list_elements):
@@ -19,10 +20,19 @@ def print_list_items(list_elements):
                 print(f"dict_{index}:")
                 print_dict_elem(elem)
             else:
-                print(f"{index}. {elem}")
+                if isinstance(elem, str):
+                    print(f"{index}. {elem.title()}")
+                else:
+                    print(f"{index}. {elem}")
+                # end if
+            # end if
         # end for
     except IndexError as e:
         print(f"!!!!!!there was an index out of range or invalid list index, {e}!!!!!\n")
+    except ValueError as e:
+        print(f"!!!!!A ValueError error occurred, {e}!!!!!\n")
+    except TypeError as e:
+        print(f"!!!!!A TypeError occurred, {e}!!!!!\n")
     except Exception as e:
         print(
             f"!!!!!sorry, but there was an unexpected, unhandled exception raised, {e}!!!!!\n"
@@ -31,11 +41,19 @@ def print_list_items(list_elements):
 # end print_list_items()
 
 """
-name: print_dict_item(dict_elements)
-author: gasteiger, Lg
-date: 2025-09-01
-description: this function will print the key/value pairs of the dictionary
-             to the screen
+Prints out the elements of a dictionary with any nested lists or dictionary
+to the screen
+
+Args:
+    dict_elements (Dictionary): The Dictionary data structure that will be 
+    printed to the screen
+
+Returns:
+    None
+
+Raises:
+    ValueError: If the expected value is not received
+    IndexError: If an out of range index is encountered
 """
 def print_dict_elem(dict_elements):
     try:
@@ -48,16 +66,26 @@ def print_dict_elem(dict_elements):
             elif isinstance(value, dict):
                 print(f"key -> {key}")
                 for key, contents in value.items():
-                    print(f"\tkey -> {key.title()}: value -> {contents.title()}")
+                    if isinstance(contents, str):
+                        print(f"\tkey -> {key.title()}: value -> {contents.title()}")
+                    else:
+                        print(f"\tkey -> {key.title()}: value -> {contents}")
+                    # end if
                 # end for
             else:
-                print(f"\tkey -> {key.title()}: value -> {value.title()},")
+                if isinstance(value, str):
+                    print(f"\tkey -> {key.title()}: value -> {value.title()}")
+                else:
+                    print(f"\tkey -> {key.title()}: value -> {value}")
+                # end if
             # end if
         # end for
     except ValueError as e:
-        print(f"!!!!!sorry, but a ValueError occurred, {e}!!!!!")
+        print(f"!!!!!sorry, but a ValueError occurred, {e}!!!!!\n")
+    except TypeError as e:
+        print(f"!!!!!sorry, but a TypeError occurred, {e}!!!!!\n")
     except Exception as e:
-        print(f"!!!!!sorry, an unexpected error occurred, {e}!!!!!")
+        print(f"!!!!!sorry, an unexpected error occurred, {e}!!!!!\n")
     # end try...except
 # end print_dict_elem()
 
