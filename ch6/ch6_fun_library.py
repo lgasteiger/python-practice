@@ -1,17 +1,17 @@
 def print_list_items(list_elements):
     """
-    Prints out the elements in a list with any nested lists or dictionaries
+    prints out the elements in a list with any nested lists or dictionaries
     to the screen
 
-    Args:
+    args:
         list_elements (List): The List data structure containing the elements
-        to be printed to the screen.
+        to be printed to the screen
 
-    Returns: 
-        None
+    returns: 
+        none
 
-    Raises:
-        IndexError: If there is an index out of range when looping through the
+    raises:
+        IndexError: if there is an index out of range when looping through the
         List
     """
     try:
@@ -30,9 +30,9 @@ def print_list_items(list_elements):
     except IndexError as e:
         print(f"!!!!!!there was an index out of range or invalid list index, {e}!!!!!\n")
     except ValueError as e:
-        print(f"!!!!!A ValueError error occurred, {e}!!!!!\n")
+        print(f"!!!!!a ValueError error occurred, {e}!!!!!\n")
     except TypeError as e:
-        print(f"!!!!!A TypeError occurred, {e}!!!!!\n")
+        print(f"!!!!!a TypeError occurred, {e}!!!!!\n")
     except Exception as e:
         print(
             f"!!!!!sorry, but there was an unexpected, unhandled exception raised, {e}!!!!!\n"
@@ -41,17 +41,17 @@ def print_list_items(list_elements):
 # end print_list_items()
 
 """
-Prints out the elements of a dictionary with any nested lists or dictionary
+prints out the elements of a dictionary with any nested lists or dictionary
 to the screen
 
-Args:
+args:
     dict_elements (Dictionary): The Dictionary data structure that will be 
     printed to the screen
 
-Returns:
-    None
+returns:
+    none
 
-Raises:
+raises:
     ValueError: If the expected value is not received
     IndexError: If an out of range index is encountered
 """
@@ -91,9 +91,20 @@ def print_dict_elem(dict_elements):
 
 def is_continue():
     """
-    this function prompts the user if they wish to continue. if the input
+    prompts the user if they wish to continue. if the input
     response from the user is 'y' or 'Y', then the app will continue.
     otherwise, the app will end
+
+    args:
+        none
+
+    returns:
+        True if either the 'y' or 'Y' chars are entered in the keyboard
+        otherwise, returns False
+
+    raises:
+        Exception: if an unexpected error occurs and needs to be caught and 
+                   displayed on the screen to the user
     """
     try:
         while True:
@@ -101,22 +112,21 @@ def is_continue():
                  "would you like to continue with the app? (y/n) "
             ) # end input()
 
-            if user_response == "":
+            if user_response.strip():
+                if user_response == "y" or user_response == "Y":
+                    return True
+                else:
+                    return False
+                # end if
+            else:
                 print(
                     "!!!!!please enter an input. the input cannot be blank!!!!!"
                 ) # end print()
-            elif user_response == "y" or user_response == "Y":
-                return True
-            else:
-                return False
-            # end if
+            #end if
         # end while
-    except ValueError as e:
-        print(f"!!!!!a ValueError exception has occurred, {e}!!!!!")
     except Exception as e:
         print(f"!!!!!an unexpected, unhandled error occurred, {e}!!!!!")
     # end try...except
-    # end while
 # end is_continue()
 
 def add_person_data(person_list, per_first_name, per_last_name, per_age, per_city):
@@ -169,3 +179,37 @@ def get_person_max(person_list):
         ) # end print()
     # end try...except
 # end get_person_max()
+
+def get_valid_input(prompt):
+    """
+    get non-empty input from user, rejecting blank or whitespace-only entries
+
+    args:
+        prompt: the string question sent to the console display
+
+    returns:
+        non-empty input from the keyboard
+    
+    raises:
+        Exception: if an unexpected, unhandled exception occurs and needs to
+                   displayed on the screen for the user
+    """
+    try:
+        while True:
+            users_input = input(prompt)
+            if users_input.strip():
+                return users_input.strip()
+            else:
+                print("!!!!!sorry, input cannot be empty. please try again!!!!!")
+                if not is_continue():
+                    break
+                # end if
+            # end if
+        # end while
+    except Exception as e:
+        print(
+            f"!!!!!sorry, and unexpected, unhandled exception occurred, "
+            f"{e}!!!!!"
+        ) # end print()
+    # end try...except
+# end get_valid_input(prompt)
