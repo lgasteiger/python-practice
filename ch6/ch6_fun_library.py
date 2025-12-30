@@ -213,3 +213,23 @@ def get_valid_input(prompt):
         ) # end print()
     # end try...except
 # end get_valid_input(prompt)
+
+def is_numeric(keyboard_input):
+    """
+    checks if user input from the keyboard is a number including negative
+    and decimal numbers
+
+    args:
+        user_input: keyboard input captured by console
+
+    returns:
+        True if user_input is a number. otherwise, False is returned
+
+    """
+    try:
+        num_test = float(keyboard_input)
+        return True
+    except ValueError as e:
+        return False
+    # end try...except
+# end is_numeric()
