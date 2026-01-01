@@ -68,6 +68,8 @@ def print_dict_elem(dict_elements):
                 for key, contents in value.items():
                     if isinstance(contents, str):
                         print(f"\tkey -> {key.title()}: value -> {contents.title()}")
+                    elif isinstance(contents, int):
+                        print(f"\tkey -> {key.title()}: value -> {contents:,}")
                     else:
                         print(f"\tkey -> {key.title()}: value -> {contents}")
                     # end if
@@ -75,6 +77,8 @@ def print_dict_elem(dict_elements):
             else:
                 if isinstance(value, str):
                     print(f"\tkey -> {key.title()}: value -> {value.title()}")
+                elif isinstance(value, int):
+                    print(f"\tkey -> {key.title()}: value -> {value:,}")
                 else:
                     print(f"\tkey -> {key.title()}: value -> {value}")
                 # end if
