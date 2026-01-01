@@ -59,9 +59,9 @@ def print_dict_elem(dict_elements):
     try:
         for key, value in dict_elements.items():
             if isinstance(value, list):
-                print(f"key -> {key}: value ->")
+                print(f"\tkey -> {key.title()}: value ->")
                 for index, item in enumerate(value):
-                    print(f"\t{index}. {item}")
+                    print(f"\t\tlist index [{index}]: {item}")
                 # end for
             elif isinstance(value, dict):
                 print(f"key -> {key}")
