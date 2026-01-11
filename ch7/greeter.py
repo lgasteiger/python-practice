@@ -20,3 +20,10 @@ name = get_valid_input(prompt)
 print(f"hello, {name.title()}!\n")
 
 print("**********test int input**********")
+age = int(get_valid_input("how old are you: "))
+print(f"the inputted age is: {age}")
+if age >= 21:
+    print("!!!!!great time in life!!!!!\n")
+else:
+    print("!!!!!almost there in life!!!!!\n")
+# end if
