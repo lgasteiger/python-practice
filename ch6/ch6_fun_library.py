@@ -204,7 +204,10 @@ def get_valid_input(prompt):
             if users_input.strip():
                 return users_input.strip()
             else:
-                print("!!!!!sorry, input cannot be empty. please try again!!!!!")
+                print(
+                    "!!!!!sorry, input cannot be empty. please try "
+                    "again!!!!!"
+                ) # end print()
                 if not is_continue():
                     break
                 # end if
