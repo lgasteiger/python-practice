@@ -39,28 +39,30 @@ def get_natural_num_input(prompt_mess):
     raise:
         TypeError: if the value from the keyboard is not a number
     """
-    try:
-        num_input = float(get_valid_input(prompt_mess))
-        if num_input > 0:
-            return num_input
-        else:
-            print("!!!!!negative numbers are not permitted!!!!!")
-            return None
-        # end if
-    except TypeError as e:
-        print(
-            f"!!!!!sorry, a TypeError exception was encountered. only whole "
-            f"numbers are accepted at this time!!!!! {e}\n"
-        ) # end print()
-    except ValueError as e:
-        print(
-            f"!!!!!sorry, a ValueError exception was encountered. only whole "
-            f"numbers are accepted at this time!!!!! {e}\n"
-        ) # end print()
-    except Exception as e:
-        print(
-            f"!!!!!sorry, an unhandled, unexpected exception occured. "
-            f"{e}!!!!!\n"
-        ) # end print()
-    # end try...except
+    while True:
+        try:
+            num_input = float(get_valid_input(prompt_mess))
+            if num_input >= 0:
+                return num_input
+            else:
+                print("!!!!!negative numbers are not permitted!!!!!\n")
+                return None
+            # end if
+        except TypeError as e:
+            print(
+                f"!!!!!sorry, a TypeError exception was encountered. only "
+                f"whole numbers are accepted at this time!!!!! {e}\n"
+            ) # end print()
+        except ValueError as e:
+            print(
+                f"!!!!!sorry, a ValueError exception was encountered. only "
+                f"whole numbers are accepted at this time!!!!! {e}\n"
+            ) # end print()
+        except Exception as e:
+            print(
+                f"!!!!!sorry, an unhandled, unexpected exception occured. "
+                f"{e}!!!!!\n"
+            ) # end print()
+        # end try...except
+    # end while
 # end get_natural_num_input()
