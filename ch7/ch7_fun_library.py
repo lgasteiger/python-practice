@@ -21,7 +21,7 @@ notes:
     Prof. Matthes, E.
 """
 
-from ch6.ch6_fun_library import get_valid_input
+from ch6.ch6_fun_library import get_valid_input, is_continue
 
 def get_natural_num_input(prompt_mess):
     """
@@ -46,23 +46,36 @@ def get_natural_num_input(prompt_mess):
                 return num_input
             else:
                 print("!!!!!negative numbers are not permitted!!!!!\n")
-                return None
+                if not is_continue():
+                    break
+                # end if
             # end if
         except TypeError as e:
             print(
                 f"!!!!!sorry, a TypeError exception was encountered. only "
-                f"whole numbers are accepted at this time!!!!! {e}\n"
+                f"whole numbers are accepted at this time, {e}!!!!!\n"
             ) # end print()
+            if not is_continue():
+                break
+            # end if
         except ValueError as e:
             print(
                 f"!!!!!sorry, a ValueError exception was encountered. only "
-                f"whole numbers are accepted at this time!!!!! {e}\n"
+                f"whole numbers are accepted at this time, {e}!!!!!\n"
             ) # end print()
+            if not is_continue():
+                break
+            # end if
         except Exception as e:
             print(
                 f"!!!!!sorry, an unhandled, unexpected exception occured. "
                 f"{e}!!!!!\n"
             ) # end print()
+            if not is_continue():
+                break
+            # end if
         # end try...except
     # end while
+    
+    return None
 # end get_natural_num_input()

@@ -124,12 +124,13 @@ def is_continue():
                 # end if
             else:
                 print(
-                    "!!!!!please enter an input. the input cannot be blank!!!!!"
+                    "!!!!!please enter an input. the input cannot be "
+                    "blank\n!!!!!"
                 ) # end print()
             #end if
         # end while
     except Exception as e:
-        print(f"!!!!!an unexpected, unhandled error occurred, {e}!!!!!")
+        print(f"!!!!!an unexpected, unhandled error occurred, {e}!!!!!\n")
     # end try...except
 # end is_continue()
 
@@ -179,7 +180,8 @@ def get_person_max(person_list):
         ) # end print()
     except Exception as e:
         print(
-            f"sorry, but there was an unexpected, unhandled exception raised, {e}\n"
+            f"sorry, but there was an unexpected, unhandled exception raised, "
+            f"{e}\n"
         ) # end print()
     # end try...except
 # end get_person_max()
@@ -206,7 +208,7 @@ def get_valid_input(prompt):
             else:
                 print(
                     "!!!!!sorry, input cannot be empty. please try "
-                    "again!!!!!"
+                    "again!!!!!\n"
                 ) # end print()
                 if not is_continue():
                     break
@@ -216,7 +218,7 @@ def get_valid_input(prompt):
     except Exception as e:
         print(
             f"!!!!!sorry, and unexpected, unhandled exception occurred, "
-            f"{e}!!!!!"
+            f"{e}!!!!!\n"
         ) # end print()
     # end try...except
 # end get_valid_input(prompt)

@@ -20,7 +20,6 @@ notes:
     Prof. Matthes, E.
 """
 
-from ch6.ch6_fun_library import get_valid_input
 import ch7_fun_library
 
 ############################
