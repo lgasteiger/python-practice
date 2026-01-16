@@ -2,7 +2,7 @@
 module name: ch7_1_rental_car.py
 
 description:
-    prompts the user of what type of rental car they would like
+    prompts the user of what type of rental car they would like to reserve
 
 author: L g
 created: 2026-01-13
