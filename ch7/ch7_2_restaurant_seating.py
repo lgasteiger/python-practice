@@ -66,3 +66,5 @@ def handle_grp_size(curr_grp_size):
 dinner_grp_size = get_natural_num_input(
     "please enter the total number of people in your dinner group: "
 ) # end get_natural_num_input()
+
+handle_grp_size(dinner_grp_size)
