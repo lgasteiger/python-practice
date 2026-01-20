@@ -2,7 +2,7 @@
 module name: counting.py
 
 description:
-    this app counts from 1 to 5
+    this app counts from 1 to 5 and prints the results to the screen
 
 author: L g
 created: 2026-01-18
