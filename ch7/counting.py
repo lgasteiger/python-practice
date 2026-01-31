@@ -24,7 +24,10 @@ notes:
 # main app starts here #
 ########################
 curr_num = 0
-while curr_num < 5:
-    print(f"the current number is: {curr_num + 1}\n")
+while curr_num < 10:
+    if curr_num % 2 != 0:
+        print(f"the current numbers with a remainder include: {curr_num}\n")
+    # end if
+    
     curr_num += 1
 # end while
