@@ -42,7 +42,7 @@ def verify_users(users_to_verify):
         confirmed_users.append(current_user)
     # end while
     
-    print("the following users have been confirmed: \n")
+    print("the following users have been confirmed:")
     for index, user in enumerate(confirmed_users, start=1):
         print(f"{index}. {user.title()}\n")
     # end for
