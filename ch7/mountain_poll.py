@@ -31,7 +31,6 @@ def get_polling_data(part_resp):
         part_resp is the dictionary data structure that will store the 
         participant's name and response 
     
-    
     returns:
         none
 
