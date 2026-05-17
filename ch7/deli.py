@@ -86,5 +86,8 @@ def get_sandwich_orders():
 # main program starts here #
 ############################
 print("*****processing sandwich orders*****")
-sandwich_orders_list = get_sandwich_orders()
-process_sandwich_orders(sandwich_orders_list)
+sandwich_orders_new = get_sandwich_orders()
+process_sandwich_orders(sandwich_orders_new)
+
+print("*****testing sandwich_orders_new purge*****")
+print(sandwich_orders_new)
