@@ -1,3 +1,26 @@
+"""
+module name: ch6_fun_library.py
+
+description:
+    contains reusable functions originally created in the chapter 6 exercises
+    of the "Python Crash Course, 3rd Ed." by Prof. Matthes, E.
+
+author: L g
+created: 2026-01-11
+last modified: 2026-05-18
+version: 1.0.0
+
+dependencies:
+    None
+
+license:
+    None
+
+notes:
+    this module contains examples from the "Python Crash Course, 3rd Ed." from
+    Prof. Matthes, E.
+"""
+
 def print_list_items(list_elements):
     """
     prints out the elements in a list with any nested lists or dictionaries
