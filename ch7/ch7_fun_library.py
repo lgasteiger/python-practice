@@ -7,7 +7,7 @@ description:
 
 author: L g
 created: 2026-01-11
-last modified: 2026-01-11
+last modified: 2026-05-18
 version: 1.0.0
 
 dependencies:
@@ -79,3 +79,61 @@ def get_natural_num_input(prompt_mess):
     
     return None
 # end get_natural_num_input()
+
+def get_sandwich_orders():
+    """
+    this function will prompt for sandwich orders until no more orders are
+    requested. then, a dictionary of sandwich orders is returned
+
+    args:
+        none
+
+    returns:
+        a dictionary of sandwich orders, including the name of the sandwich
+        requester as the dictionary key
+
+    raises:
+        none
+    """
+    sandwich_orders_req = {}
+    
+    while True:
+        new_sandwich_requester = get_valid_input(
+            "please enter your name: "
+        ) # end get_valid_input()
+        new_sandwich_order = get_valid_input(
+            "please enter a sandwich type for the order: "
+        ) # end get_valid_input()
+        sandwich_orders_req[new_sandwich_requester] = new_sandwich_order
+        
+        if not is_continue():
+            break
+        # end if
+    # end while
+    
+    return sandwich_orders_req
+# end get_sandwich_orders()
+
+def process_sandwich_orders(sandwich_orders):
+    """
+    this function will process a list of sandwich orders and print the status
+    of each order. then, the completed sandwich orders will be deleted from 
+    sandwich_orders dictionary and moved to a new completed sandwich orders
+    dictionary
+
+    args:
+        sandwich_orders: contains a dictionary of sandwich orders
+
+    returns:
+        none
+
+    raises:
+        none
+    """
+    completed_sandwich_orders = {}
+    for name in list(sandwich_orders.keys()):
+        sandwich = sandwich_orders.pop(name)
+        print(f"the '{sandwich}' sandwich for '{name}' is ready")
+        completed_sandwich_orders[name] = sandwich
+    # end for    
+# end process_sandwich_orders()
