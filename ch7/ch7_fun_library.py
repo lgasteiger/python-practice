@@ -137,3 +137,53 @@ def process_sandwich_orders(sandwich_orders):
         completed_sandwich_orders[name] = sandwich
     # end for    
 # end process_sandwich_orders()
+
+def get_polling_data(user_prompt):
+    """
+    prompts for person's name and response. stores the response in the 
+    user_resp_dict
+
+    args:
+        user_resp_dict is the dictionary data structure that will store the 
+        participant's name and response 
+    
+    returns:
+        none
+
+    raises:
+        none
+    """
+
+    user_resp_dict = {}
+    while True:
+        name = get_valid_input("what is your name: ")
+        resp = get_valid_input(user_prompt)
+        user_resp_dict[name] = resp
+
+        if not is_continue():
+            break
+        # end if
+    # end while
+        
+    return user_resp_dict
+# end get_polling_data()
+
+def print_polling_data(user_resp_dict):
+    """
+    prints the polling data in the part_resp dictionary data structure
+
+    args:
+        part_resp is the dictionary containing the participant's name and
+        response
+
+    returns:
+        none
+
+    raises:
+        none
+    """
+    print("\n*****polling results*****")
+    for name, resp in user_resp_dict.items():
+        print(f"{name} would like to climb '{resp}'")
+    # end for
+# end print_polling_data()
