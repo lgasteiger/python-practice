@@ -23,63 +23,24 @@ notes:
 
 """
 
-from ch6.ch6_fun_library import get_valid_input
+from ch8.ch8_fun_library import ex_ch8_3_get_shirt_data, ex_ch8_3_write_shirt
+from ch8.ch8_fun_library import ex_ch8_3_write_shirt2
 
-def write_shirt(size, text_message):
-    """
-    prints to the display a message summarizing the size of the shirt and the
-    message printed on it
-
-    args:
-        size: the size of the shirt
-
-        text_message: the message that is to be printed on the shirt
-
-    returns:
-        none
-
-    raises:
-        none
-    """
-    print(
-        f"the size of the shirt is '{size}', and the message to be printed on "
-        f"the shirt is: '{text_message}'\n"
-    ) # end print()
-# end write_shirt()
-    
-def get_shirt_data():
-    """
-    prompts for shirt size and t-shirt message and accepts input from the 
-    console. then, returns a dictionary with t-shirt size and message to be 
-    printed on shirt
-
-    args:
-        none
-
-    returns:
-        dictionary with t-shirt size and message printed on it
-
-    raises:
-        none 
-    """
-    t_shirt_dict = {}
-    shirt_size = get_valid_input("please enter the size of the t-shirt: ")
-    t_shirt_dict["size"] = shirt_size
-
-    shirt_message = get_valid_input(
-        "please enter the message that will be printed on the shirt: "
-    ) # end get_valid_input()
-    t_shirt_dict["text"] = shirt_message
-    return t_shirt_dict
-# end get_shirt_data()
-    
 ########################
 # main app starts here #
 ########################
 print("*****prompting for the t-shirt data*****")
-t_shirt_data = get_shirt_data()
+t_shirt_data = ex_ch8_3_get_shirt_data()
 print()
 print(
     "*****displaying the t-shirt attributes (size, message printed on shirt)"
 ) # end print()
-write_shirt(t_shirt_data["size"], t_shirt_data["text"])
+ex_ch8_3_write_shirt(t_shirt_data["size"], t_shirt_data["text"])
+print()
+print(
+    "*****displays to the screen t-shirt default size of 'L' and message to "
+    "'i love python. otherwise, displays to the screen what is entered on the "
+    "console*****"
+) # end print()
+ex_ch8_3_write_shirt2()
+ex_ch8_3_write_shirt2("m")
