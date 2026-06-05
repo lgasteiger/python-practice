@@ -20,11 +20,17 @@ notes:
     this module is an example from the "Python Crash Course, 3rd Ed." from
     Prof. Matthes, E.
 """
-
+from ch6.ch6_fun_library import is_continue
 from ch8.ch8_fun_library import ex_8_2_display_fav_book, ex_8_2_get_favorite_book
 
 ########################
 # main app starts here #
 ########################
-fav_book_response = ex_8_2_get_favorite_book()
-ex_8_2_display_fav_book(fav_book_response)
+while True:
+    fav_book_response = ex_8_2_get_favorite_book()
+    ex_8_2_display_fav_book(fav_book_response)
+
+    if not is_continue():
+        break
+    # end if
+# end while

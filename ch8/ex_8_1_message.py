@@ -19,8 +19,7 @@ notes:
     this module is an example from the "Python Crash Course, 3rd Ed." from
     Prof. Matthes, E.
 """
-
-from ch6.ch6_fun_library import get_valid_input
+from ch6.ch6_fun_library import get_valid_input, is_continue
 
 def display_message(user_response):
     """
@@ -37,7 +36,7 @@ def display_message(user_response):
     """
     print(
         f"in this chapter of Prof. Matthes' book titled, 'Python Crash Course',"
-        f" the topics i learned included, '{user_response}'"
+        f" the topics i learned included, '{user_response}'\n"
     ) # end print()
 # end display_message()
     
@@ -65,5 +64,12 @@ def get_user_response():
 ########################
 # main app starts here #
 ########################
-user_response_keyboard = get_user_response()
-display_message(user_response_keyboard)
+print("**********exercise 8.1 messages**********")
+while True:
+    user_response_keyboard = get_user_response()
+    display_message(user_response_keyboard)
+
+    if not is_continue():
+        break
+    # end if
+# end while

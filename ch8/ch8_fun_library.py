@@ -20,7 +20,6 @@ notes:
     this module contains examples from the "Python Crash Course, 3rd Ed." from
     Prof. Matthes, E.
 """
-
 from ch6.ch6_fun_library import get_valid_input
 
 def ex_8_2_get_favorite_book():
@@ -60,11 +59,11 @@ def ex_8_2_display_fav_book(title):
     """
 
     print(
-        f"one of the user's favorite books is: '{title}'"
+        f"one of the user's favorite books is: '{title}'\n"
     ) # end print()
 # end ex_8_2_display_fav_book()
 
-def ex_ch8_3_write_shirt(size, text_message):
+def ex_8_3_write_shirt(size, text_message):
     """
     prints to the display a message summarizing the size of the shirt and the
     message printed on it
@@ -86,7 +85,7 @@ def ex_ch8_3_write_shirt(size, text_message):
     ) # end print()
 # end ex_ch8_3_write_shirt()
     
-def ex_ch8_3_write_shirt2(size="L", display_message="i love python"):
+def ex_8_3_write_shirt2(size="L", display_message="i love python"):
     """
     prints to the display a message summarizing the size of the shirt and the
     message printed on it
@@ -109,7 +108,7 @@ def ex_ch8_3_write_shirt2(size="L", display_message="i love python"):
     ) # end print()
 # end ex_ch8_3_write_shirt2()
     
-def ex_ch8_3_get_shirt_data():
+def ex_8_3_get_shirt_data():
     """
     prompts for shirt size and t-shirt message and accepts input from the 
     console. then, returns a dictionary with t-shirt size and message to be 
@@ -134,3 +133,25 @@ def ex_ch8_3_get_shirt_data():
     t_shirt_dict["text"] = shirt_message
     return t_shirt_dict
 # end ex_ch8_3_get_shirt_data()
+
+def ex_8_5_desc_city():
+    """
+    prompts for the name of a city and its country. then, the city and its
+    country is printed to the display. the default country parameter value is 
+    'United States'.
+
+    args:
+        none
+
+    returns:
+        none
+
+    raises:
+        none 
+    """
+    city_name = get_valid_input("please enter a city: ")
+    country_name = get_valid_input("please enter the city's country: ")
+    print(
+        f"{city_name.title()} is in {country_name.title()}\n"
+    ) # end print()
+# ex_ch8_5_desc_city()
