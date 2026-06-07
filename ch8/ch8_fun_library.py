@@ -155,3 +155,80 @@ def ex_8_5_desc_city():
         f"{city_name.title()} is in {country_name.title()}\n"
     ) # end print()
 # ex_ch8_5_desc_city()
+
+def get_formatted_name(first_name, last_name, middle_name=""):
+    """
+    returns the name neatly formatted in the format 'first_name middle_name 
+    last_name'. if no middle name is provided then the format will be 
+    'first_name last_name'
+
+    args:
+        first_name: string first name provided
+
+        last_name: string last name provided
+
+        middle_name: string middle name provided. optional
+    
+    returns:
+        the formatted string name
+
+    raises:
+        none
+    """
+    if middle_name:
+        fullname = f"'{first_name} {middle_name} {last_name}'\n"
+    else:
+        fullname = f"'{first_name} {last_name}'\n"
+    # end if
+        
+    return fullname.title()
+# end get_formatted_name()
+
+def make_album(name, album_title, num_of_songs=None):
+    """
+    returns a dictionary with the musician's name, album title and number of
+    songs on the album
+
+    args:
+        name: artist name
+
+        album_title: artist's album title
+
+        num_of_songs: the number of songs on the artist's album
+
+    returns:
+        dictionary of a musician's album info
+
+    raises:
+        none
+    """
+    music_album_dict = {
+        "artist_name": name, 
+        "album_name": album_title,
+        "song_total": num_of_songs,
+    } # end music_album_dict
+
+    return music_album_dict
+# end make_album()
+
+def ex_8_7_make_album():
+    """
+    builds a dictionary describing a music album. prompts for an artist name
+    and an album title from the console. then, returns a dictionary containing
+    these two pieces of info
+
+    args:
+        none
+
+    returns:
+        dictionary containing an artist name, album title, and number of 
+        album songs
+
+    raises:
+        none
+    """
+    musician_name = get_valid_input("please enter the music artist name: ")
+    lp_name = get_valid_input("please enter the name of the music album: ")
+    songs_count = get_valid_input("please the number of songs on the album: ")
+    return make_album(musician_name, lp_name, songs_count)
+# end ex_8_7_make_album()

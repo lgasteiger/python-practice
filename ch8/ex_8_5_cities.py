@@ -23,7 +23,7 @@ notes:
 
 """
 from ch6.ch6_fun_library import is_continue
-from ch8.ch8_fun_library import ex_8_5_desc_city
+from ch8.ch8_fun_library import ex_8_5_desc_city, get_formatted_name
 
 ########################
 # main app starts here #
@@ -36,3 +36,7 @@ while True:
         break
     # end if
 # end while
+
+print("**********testing get_formatted_name()**********")
+print(get_formatted_name('jimi', 'hendrix'))
+print(get_formatted_name('john', 'hooker', 'lee'))
