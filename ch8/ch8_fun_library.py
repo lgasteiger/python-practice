@@ -20,7 +20,8 @@ notes:
     this module contains examples from the "Python Crash Course, 3rd Ed." from
     Prof. Matthes, E.
 """
-from ch6.ch6_fun_library import get_valid_input
+from ch6.ch6_fun_library import get_valid_input, print_list_items
+from pathlib import Path
 
 def ex_8_2_get_favorite_book():
     """
@@ -46,7 +47,7 @@ def ex_8_2_get_favorite_book():
 def ex_8_2_display_fav_book(title):
     """
     prints to the display screen a message concerning one of the user's
-    favorite books
+    favorite books.
 
     args:
         title: the user's favorite book
@@ -66,7 +67,7 @@ def ex_8_2_display_fav_book(title):
 def ex_8_3_write_shirt(size, text_message):
     """
     prints to the display a message summarizing the size of the shirt and the
-    message printed on it
+    message printed on it.
 
     args:
         size: the size of the shirt
@@ -88,7 +89,7 @@ def ex_8_3_write_shirt(size, text_message):
 def ex_8_3_write_shirt2(size="L", display_message="i love python"):
     """
     prints to the display a message summarizing the size of the shirt and the
-    message printed on it
+    message printed on it.
 
     args:
         size: the size of the shirt is default 'L'
@@ -112,7 +113,7 @@ def ex_8_3_get_shirt_data():
     """
     prompts for shirt size and t-shirt message and accepts input from the 
     console. then, returns a dictionary with t-shirt size and message to be 
-    printed on shirt
+    printed on shirt.
 
     args:
         none
@@ -160,7 +161,7 @@ def get_formatted_name(first_name, last_name, middle_name=""):
     """
     returns the name neatly formatted in the format 'first_name middle_name 
     last_name'. if no middle name is provided then the format will be 
-    'first_name last_name'
+    'first_name last_name'.
 
     args:
         first_name: string first name provided
@@ -187,7 +188,7 @@ def get_formatted_name(first_name, last_name, middle_name=""):
 def make_album(name, album_title, num_of_songs=None):
     """
     returns a dictionary with the musician's name, album title and number of
-    songs on the album
+    songs on the album.
 
     args:
         name: artist name
@@ -215,7 +216,7 @@ def ex_8_7_make_album():
     """
     builds a dictionary describing a music album. prompts for an artist name
     and an album title from the console. then, returns a dictionary containing
-    these two pieces of info
+    these two pieces of info.
 
     args:
         none
@@ -232,3 +233,139 @@ def ex_8_7_make_album():
     songs_count = get_valid_input("please the number of songs on the album: ")
     return make_album(musician_name, lp_name, songs_count)
 # end ex_8_7_make_album()
+
+def greet_users(names_list):
+    """
+    prints a greeting to the display for each of the folks in the names list.
+
+    args:
+        names_list: list of names
+
+    returns:
+        none
+
+    raises:
+        none
+    """
+    for name in names_list:
+        print(f"hello, {name.title()}. welcome aboard!")
+    # end for
+# end greet_users()
+        
+def print_models(design_models_list):
+    """
+    processes each design model, prints the status to the display, and moves
+    the completed design model to a completed model list.
+
+    args:
+        design_models_list: list of design models to be processed
+
+    returns:
+        list of completed models
+
+    raises:
+        none
+    """
+    completed_models_list = []
+    while design_models_list:
+        current_design = design_models_list.pop()
+        print(f"printing model: {current_design}")
+        completed_models_list.append(current_design)
+    # end while
+        
+    return completed_models_list
+# end print_models()
+        
+def show_completed_models(models_list):
+    """
+    displays to the screen the list of completed models that were processed
+    successfully.
+
+    args:
+        models_list: list of models to be shown on the display
+
+    return:
+        none
+
+    raises:
+        none
+    """
+    print_list_items(models_list)
+# end show_completed_models()
+    
+def show_txt_messages(txt_messages_file: Path):
+    """
+    prints each text message to the display.
+
+    args:
+        txt_messages_file: string file path of text messages file
+
+    returns:
+        none
+
+    raises:
+        none
+    """
+    try:
+        with open(txt_messages_file, 'r', encoding='utf-8') as file:
+            for line in file:
+                txt_message = line.strip()
+                if txt_message:
+                    print(
+                        f"existing text message to be transmitted: "
+                        f"'{txt_message}'"
+                    ) # end print()
+                # end if
+            # end for
+    except FileNotFoundError as e:
+        print(
+            f"!!!!!sorry, file located at '{txt_messages_file}' is not found. "
+            f"'{e}'. please try again when you get a chance!!!!!"
+        ) # end print()
+    except Exception as e:
+        print(
+            f"!!!!!sorry, there was an unhandled, unexpected error that "
+            f"occurred, '{e}'!!!!!"
+        ) # end print()
+    # end try...except
+# end show_messages()
+    
+def send_txt_messages(txt_messages_file: Path):
+    """
+    processes text messages in the txt_messages_list list data structure.
+    prints to the display the status of processed text message, and moves
+    all successfully sent text messages to a completed text message list.
+
+    args:
+        txt_messages_list: list of text messages that need to be sent
+
+    returns:
+        list of successfully sent text messages
+
+    raises:
+        none
+    """
+    completed_txt_messages_list = []
+    try:
+        with open(txt_messages_file, 'r', encoding='utf-8') as file:
+            for line in file:
+                curr_text_message = line.strip()
+                if curr_text_message:
+                    print(f"sending text message: '{curr_text_message}'")
+                    completed_txt_messages_list.append(curr_text_message)
+                # end if
+            # end for 
+    except FileNotFoundError as e:
+        print(
+            f"!!!!!sorry, file located at '{txt_messages_file}' is not found. "
+            f"'{e}'. please try again when you get a chance!!!!!"
+        ) # end print()
+    except Exception as e:
+        print(
+            f"!!!!!sorry, there was an unhandled, unexpected error that "
+            f"occurred, '{e}'!!!!!"
+        ) # end print()
+    # end try...except
+
+    return completed_txt_messages_list
+# end send_txt_messages()

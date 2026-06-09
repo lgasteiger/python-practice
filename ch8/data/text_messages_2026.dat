@@ -1,0 +1,4 @@
+1. We define the function print_models() with two parameters:
+2. a list of designs that need to be printed and a list of completed models.
+3. Given these two lists, the function simulates printing each design by
+4. emptying the list of unprinted designs and filling up the list of completed models.
