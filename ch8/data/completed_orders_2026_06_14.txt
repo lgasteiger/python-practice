@@ -1,0 +1,2 @@
+completed pizza order: 'pepperoni'
+completed pizza order: 'mushrooms, green peppers, extra cheese'

@@ -304,7 +304,9 @@ def show_txt_messages(txt_messages_file: Path):
         none
 
     raises:
-        none
+        FileNotFoundError: exception raised when file is not found at the 
+                           specified file path location
+        IOError: exception raised when file can not be read or written to
     """
     try:
         with open(txt_messages_file, 'r', encoding='utf-8') as file:
@@ -321,6 +323,10 @@ def show_txt_messages(txt_messages_file: Path):
         print(
             f"!!!!!sorry, file located at '{txt_messages_file}' is not found. "
             f"'{e}'. please try again when you get a chance!!!!!"
+        ) # end print()
+    except IOError as e:
+        print(
+            f"!!!!!sorry, an I/O error occurred, {e}!!!!!"
         ) # end print()
     except Exception as e:
         print(
@@ -343,7 +349,9 @@ def send_txt_messages(txt_messages_file: Path):
         list of successfully sent text messages
 
     raises:
-        none
+        FileNotFoundError: exception raised when file is not found at the 
+                           specified file path location
+        IOError: exception raised when file can not be read or written to
     """
     completed_txt_messages_list = []
     try:
@@ -354,11 +362,16 @@ def send_txt_messages(txt_messages_file: Path):
                     print(f"sending text message: '{curr_text_message}'")
                     completed_txt_messages_list.append(curr_text_message)
                 # end if
-            # end for 
+            # end for
+        # end with
     except FileNotFoundError as e:
         print(
             f"!!!!!sorry, file located at '{txt_messages_file}' is not found. "
             f"'{e}'. please try again when you get a chance!!!!!"
+        ) # end print()
+    except IOError as e:
+        print(
+            f"!!!!!sorry, an I/O error occurred, {e}!!!!!"
         ) # end print()
     except Exception as e:
         print(
@@ -369,3 +382,51 @@ def send_txt_messages(txt_messages_file: Path):
 
     return completed_txt_messages_list
 # end send_txt_messages()
+
+def make_pizza(pizza_toppings_file: Path):
+    """
+    processes pizza orders saved to a flat text file. displays the status to
+    the screen of each pizza order. saves the completed pizza orders to a 
+    completed pizza orders text file.
+
+    args:
+        pizza_toppings_file: file path of the file 
+
+    returns:
+        file path to processed pizza orders
+
+    raises:
+        FileNotFoundError: exception raised when file is not found at the 
+                           specified file path location
+        IOError: exception raised when file can not be read or written to
+    """
+    try:
+        with open(pizza_toppings_file, 'r', encoding='utf-8') as input_file:
+            output_file_path = Path(".") / "data" / "completed_orders_2026_06_14.txt"
+            with open(output_file_path, 'w', encoding='utf-8') as output_file:
+                for line in input_file:
+                    curr_pizza_order = line.strip()
+                    print(
+                        f"completed pizza order: '{curr_pizza_order}'"
+                    ) # end print()
+                    output_file.write(
+                        f"completed pizza order: '{curr_pizza_order}'\n"
+                    ) # end write
+                # end for
+            # end with
+        # end with
+    except FileNotFoundError as e:
+        print(
+            f"!!!!!sorry, file located at '{pizza_toppings_file}' is not found. "
+            f"'{e}'. please try again when you get a chance!!!!!"
+        ) # end print()
+    except IOError as e:
+        print(
+            f"!!!!!sorry, an I/O error occurred, {e}!!!!!"
+        ) # end print()
+    except Exception as e:
+        print(
+            f"!!!!!sorry, an unexpected, unhandled exception was encountered, "
+            f"{e}!!!!!"
+        ) # end print()
+# end make_pizza()
