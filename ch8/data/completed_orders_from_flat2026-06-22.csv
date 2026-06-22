@@ -1,0 +1,6 @@
+datetime,customer_fname,customer_lname,pizza_size,toppings
+2026-06-22T10:32:00,jack,reacher,xlarge,cheese
+2026-06-22T10:33:00,francis,negly,medium,pepperoni|mushrooms|onions
+2026-06-22T10:33:15,l g,gasteiger,large,pepperoni|mushrooms|onions|garlic
+2026-06-22T10:34:15,carla,dixon,small,pepperoni|mushrooms|onions
+2026-06-22T10:35:45,dave,mcdonald,xlarge,sausage|peppers|olives|extra cheese

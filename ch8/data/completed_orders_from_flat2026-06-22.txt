@@ -1,0 +1,5 @@
+completed pizza order: datetime=2026-06-22T10:32:00,customer name=jack reacher,pizza size=xlarge,pizza toppings=['cheese']
+completed pizza order: datetime=2026-06-22T10:33:00,customer name=francis negly,pizza size=medium,pizza toppings=['pepperoni', 'mushrooms', 'onions']
+completed pizza order: datetime=2026-06-22T10:33:15,customer name=l g gasteiger,pizza size=large,pizza toppings=['pepperoni', 'mushrooms', 'onions', 'garlic']
+completed pizza order: datetime=2026-06-22T10:34:15,customer name=carla dixon,pizza size=small,pizza toppings=['pepperoni', 'mushrooms', 'onions']
+completed pizza order: datetime=2026-06-22T10:35:45,customer name=dave mcdonald,pizza size=xlarge,pizza toppings=['sausage', 'peppers', 'olives', 'extra cheese']

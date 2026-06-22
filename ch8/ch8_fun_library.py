@@ -23,6 +23,7 @@ notes:
 from ch6.ch6_fun_library import get_valid_input, print_list_items
 from pathlib import Path
 from datetime import date
+import csv
 
 def ex_8_2_get_favorite_book():
     """
@@ -386,7 +387,7 @@ def send_txt_messages(txt_messages_file: Path):
 
 def make_pizza(pizza_toppings_file: Path):
     """
-    processes pizza orders saved to a flat text file. displays the status to
+    processes pizza orders saved to a text file. displays the status to
     the screen of each pizza order. saves the completed pizza orders to a 
     completed pizza orders text file.
 
@@ -404,7 +405,7 @@ def make_pizza(pizza_toppings_file: Path):
     try:
         with open(pizza_toppings_file, 'r', encoding='utf-8') as input_file:
             todays_date = date.today().strftime("%Y-%m-%d")
-            orders_output_file = Path(".") / "data" / f"completed_orders_{todays_date}.txt"
+            orders_output_file = Path(".") / "data" / f"completed_orders_from_txt{todays_date}.txt"
             with open(orders_output_file, 'w', encoding='utf-8') as output_file:
                 for line in input_file:
                     curr_pizza_order = line.strip()
@@ -432,3 +433,74 @@ def make_pizza(pizza_toppings_file: Path):
             f"{e}!!!!!"
         ) # end print()
 # end make_pizza()
+        
+def make_pizza_v2(pizza_toppings_file: Path):
+    """
+    Processes pizza orders saved to a flat file delimited by a comma. 
+    Displays the status to the screen of each pizza order. 
+    Saves the completed pizza orders to a completed pizza orders text file.
+
+    args:
+        pizza_toppings_file: file path of the pizza toppings file for the 
+                             pizza orders 
+
+    returns:
+        file path to processed pizza orders
+
+    raises:
+        FileNotFoundError: exception raised when file is not found at the 
+                           specified file path location
+        IOError: exception raised when file can not be read or written to
+    """
+    try:
+        with open(pizza_toppings_file, 'r', encoding='utf-8') as input_file:
+            reader_orders = csv.reader(input_file)
+            next(reader_orders) # read past header row
+            todays_date = date.today().strftime("%Y-%m-%d")
+            orders_output_file = Path(".") / "data" / f"completed_orders_from_flat{todays_date}.csv"
+            with open(orders_output_file, 'w', encoding='utf-8') as output_file:    
+                output_file.write(
+                    "datetime,customer_fname,customer_lname,pizza_size,"
+                    "toppings\n")
+                for row in reader_orders:
+                    timestamp = row[0]
+                    lname = row[1]
+                    fname = row[2]
+                    size = row[3]
+                    toppings_list = row[4].split("|")
+                    print(
+                        f"completed pizza order: datetime={timestamp}, "
+                        f"customer name={fname} {lname}, "
+                        f"pizza size={size}, "
+                        f"pizza toppings={toppings_list}"
+                    ) # end print()
+
+                    toppings_string = '|'.join(toppings_list)
+                    output_file.write(
+                        f"{timestamp},{fname},{lname},{size},"
+                        f"{toppings_string}\n"
+                    ) # end write()
+                # end for
+            # end with
+        # end with
+    except FileNotFoundError as e:
+        print(
+            f"!!!!!sorry, file located at '{pizza_toppings_file}' is not found. "
+            f"'{e}'. please try again when you get a chance!!!!!"
+        ) # end print()
+    except IOError as e:
+        print(
+            f"!!!!!sorry, an I/O error occurred, {e}!!!!!"
+        ) # end print()
+    except Exception as e:
+        print(
+            f"!!!!!sorry, an unexpected, unhandled exception was encountered, "
+            f"{e}!!!!!"
+        ) # end print()
+# end make_pizza_v2()
+        
+"""
+For "8-12 Sandwiches" exercise, first prompt user for name, type, and toppings.
+Then, create sandwich orders file and process orders file similar to the pizza
+orders practice exercises 
+"""
