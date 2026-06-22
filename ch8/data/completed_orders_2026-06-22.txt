@@ -1,0 +1,3 @@
+completed pizza order: 'pepperoni'
+completed pizza order: 'mushrooms, green peppers, extra cheese'
+completed pizza order: 'sausage, red peppers, swiss cheese'

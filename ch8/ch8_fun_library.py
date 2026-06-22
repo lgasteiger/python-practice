@@ -22,6 +22,7 @@ notes:
 """
 from ch6.ch6_fun_library import get_valid_input, print_list_items
 from pathlib import Path
+from datetime import date
 
 def ex_8_2_get_favorite_book():
     """
@@ -402,8 +403,9 @@ def make_pizza(pizza_toppings_file: Path):
     """
     try:
         with open(pizza_toppings_file, 'r', encoding='utf-8') as input_file:
-            output_file_path = Path(".") / "data" / "completed_orders_2026_06_14.txt"
-            with open(output_file_path, 'w', encoding='utf-8') as output_file:
+            todays_date = date.today().strftime("%Y-%m-%d")
+            orders_output_file = Path(".") / "data" / f"completed_orders_{todays_date}.txt"
+            with open(orders_output_file, 'w', encoding='utf-8') as output_file:
                 for line in input_file:
                     curr_pizza_order = line.strip()
                     print(
