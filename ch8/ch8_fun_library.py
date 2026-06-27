@@ -20,7 +20,8 @@ notes:
     this module contains examples from the "Python Crash Course, 3rd Ed." from
     Prof. Matthes, E.
 """
-from ch6.ch6_fun_library import get_valid_input, print_list_items
+from ch6.ch6_fun_library import get_valid_input, print_list_items, is_continue
+from ch6.ch6_fun_library import print_dict_elem
 from pathlib import Path
 from datetime import date
 import csv
@@ -499,8 +500,139 @@ def make_pizza_v2(pizza_toppings_file: Path):
         ) # end print()
 # end make_pizza_v2()
         
-"""
-For "8-12 Sandwiches" exercise, first prompt user for name, type, and toppings.
-Then, create sandwich orders file and process orders file similar to the pizza
-orders practice exercises 
-"""
+def get_toppings():
+    """
+    Prompts for sandwich toppings wanted
+
+    args:
+        none
+
+    returns:
+        list of sandwich toppings
+    
+    raises:
+        none
+    """
+    toppings_list = []
+    while True:
+        topping = get_valid_input(
+            "Please enter sandwich topping: "
+        ) # end get_valid_input()
+        toppings_list.append(topping)
+        
+        if not is_continue():
+            break
+        # end if
+    # end while
+    return toppings_list
+# end get_toppings()
+        
+def get_sandwich_request():
+    """
+    Prompts for sandwich request info and returns a dictionary containing the
+    sandwich key/value data
+
+    args:
+        none
+        
+    returns:
+        dictionary of sandwich data key/value pairs
+
+    raises:
+        none
+    """
+    sandwich_info_dict = {}
+    first_name = get_valid_input("Please enter your first name: ")
+    sandwich_info_dict['fname'] = first_name
+
+    last_name = get_valid_input("Please enter your last name: ")
+    sandwich_info_dict['lname'] = last_name
+
+    sandwich_type = get_valid_input(
+        "Please enter the name of the sandwich: "
+    ) # end get_valid_input()
+    sandwich_info_dict['type'] = sandwich_type
+
+    sandwich_size = get_valid_input(
+        "Please enter the size of the sandwich: "
+    ) # end get_valid_input()
+    sandwich_info_dict['size'] = sandwich_size
+
+    sandwich_toppings_list = get_toppings()
+    sandwich_info_dict['toppings'] = sandwich_toppings_list
+    return sandwich_info_dict
+# end get_sandwich_request()
+
+def write_sandwich_file(sandwich_dict):
+    """
+    Writes the sandwich data in the sandwich dictionary key/value pairs to a
+    file for subsequent processing.
+
+    args:
+        sandwich_dict: dictionary of sandwich data key/value pairs for order 
+        request.
+
+    returns:
+        file path to the current day's sandwich order requests
+
+    raises:
+        IOError: raises an exception when sandwich data can not be written
+        to the recorded sandwich orders file 
+    """
+# end write_sandwich_file()
+
+def create_sandwiches():
+    """
+    Prompt for user's name, sandwich type, sandwich size, and sandwich toppings.
+    Then, create sandwich orders file. Also, writes to the status of each
+    sandwich order to the display and an output file.
+
+    args:
+        none
+
+    returns:
+        none
+
+    raises:
+        none
+    """
+    try:
+        todays_date = date.today().strftime("%Y-%m-%d")
+        completed_orders_file = Path(".") / "data" / f"completed_orders_{todays_date}.csv"
+        with open(completed_orders_file, 'w', encoding='utf-8') as orders_status_file:
+            file_header = "timestamp,lname,fname,type,size,toppings"
+            orders_status_file.write(file_header)
+            while True:
+                sandwich_req_dict = get_sandwich_request()
+                print(
+                    f"The '{sandwich_req_dict['type']}' is ready for "
+                    f"'{sandwich_req_dict['lname']}, "
+                    f"{sandwich_req_dict['fname']}'.\n"
+                ) # end print()
+
+                completed_orders_output = f"{date.today()},"
+                f"{sandwich_req_dict['lname']},{sandwich_req_dict['fname']},"
+                f"{sandwich_req_dict['type']},{sandwich_req_dict['size']}," 
+                ################################################################
+                # TODO: format 'toppings' list to flat file '|' pipe delimiter #
+                ################################################################
+                orders_status_file.write(completed_orders_output)
+
+                if not is_continue():
+                    break
+                # end if
+            # end while    
+        # end with
+    except IOError as e:
+        print(
+            f"!!!!!Sorry, the orders details data could not be written "
+            f"successfully to the orders status output file: "
+            f"'{completed_orders_file}, {e}.\n"
+        ) # end print()
+    except Exception as e:
+        print(
+            f"!!!!!I'm sorry an unhandled, unexpected exception was " 
+            f"raised, {e}!!!!!"
+        ) # end print()
+    # end try...except
+# end create_sandwiches()
