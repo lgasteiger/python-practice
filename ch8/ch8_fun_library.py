@@ -600,7 +600,7 @@ def create_sandwiches():
         todays_date = date.today().strftime("%Y-%m-%d")
         completed_orders_file = Path(".") / "data" / f"completed_orders_{todays_date}.csv"
         with open(completed_orders_file, 'w', encoding='utf-8') as orders_status_file:
-            file_header = "timestamp,lname,fname,type,size,toppings"
+            file_header = "timestamp,lname,fname,type,size,toppings\n"
             orders_status_file.write(file_header)
             while True:
                 sandwich_req_dict = get_sandwich_request()
@@ -610,9 +610,13 @@ def create_sandwiches():
                     f"{sandwich_req_dict['fname']}'.\n"
                 ) # end print()
 
-                completed_orders_output = f"{date.today()},"
-                f"{sandwich_req_dict['lname']},{sandwich_req_dict['fname']},"
-                f"{sandwich_req_dict['type']},{sandwich_req_dict['size']}," 
+                completed_orders_output = (
+                    f"{date.today()},"
+                    f"{sandwich_req_dict['lname']},"
+                    f"{sandwich_req_dict['fname']},"
+                    f"{sandwich_req_dict['type']},"
+                    f"{sandwich_req_dict['size']},\n"
+                ) # end completed_orders_output 
                 ################################################################
                 # TODO: format 'toppings' list to flat file '|' pipe delimiter #
                 ################################################################
