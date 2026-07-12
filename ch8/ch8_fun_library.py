@@ -23,7 +23,7 @@ notes:
 from ch6.ch6_fun_library import get_valid_input, print_list_items, is_continue
 from ch6.ch6_fun_library import print_dict_elem
 from pathlib import Path
-from datetime import date
+from datetime import datetime
 import csv
 
 def ex_8_2_get_favorite_book():
@@ -526,6 +526,36 @@ def get_toppings():
     # end while
     return toppings_list
 # end get_toppings()
+
+def get_sandwich_size():
+    """
+    Prompts for the sandwich size and validates that only the 'small', 
+    'large', and 'x-large' values are entered
+
+    args:
+        None
+
+    returns:
+        A valid string sandwich size
+
+    raises:
+        None
+    """
+    while True:
+        size_input = get_valid_input(
+            "Please enter the size of the sandwich: "
+        ) # end print()
+        
+        if size_input.lower() in { "small", "large", "x-large" }:
+            break
+        else:
+            print(
+                "!!!!!Sorry, the sandwich size was invalid. please only enter "
+                "'small', 'large', or 'x-large values!!!!!"
+            ) # end print()
+        # end if
+    # end while
+# end get_sandwich_size()
         
 def get_sandwich_request():
     """
@@ -553,33 +583,12 @@ def get_sandwich_request():
     ) # end get_valid_input()
     sandwich_info_dict['type'] = sandwich_type
 
-    sandwich_size = get_valid_input(
-        "Please enter the size of the sandwich: "
-    ) # end get_valid_input()
-    sandwich_info_dict['size'] = sandwich_size
+    sandwich_info_dict['size'] = get_sandwich_size()
 
     sandwich_toppings_list = get_toppings()
     sandwich_info_dict['toppings'] = sandwich_toppings_list
     return sandwich_info_dict
 # end get_sandwich_request()
-
-def write_sandwich_file(sandwich_dict):
-    """
-    Writes the sandwich data in the sandwich dictionary key/value pairs to a
-    file for subsequent processing.
-
-    args:
-        sandwich_dict: dictionary of sandwich data key/value pairs for order 
-        request.
-
-    returns:
-        file path to the current day's sandwich order requests
-
-    raises:
-        IOError: raises an exception when sandwich data can not be written
-        to the recorded sandwich orders file 
-    """
-# end write_sandwich_file()
 
 def create_sandwiches():
     """
@@ -597,10 +606,12 @@ def create_sandwiches():
         none
     """
     try:
-        todays_date = date.today().strftime("%Y-%m-%d")
-        completed_orders_file = Path(".") / "data" / f"completed_orders_{todays_date}.csv"
+        todays_datetime = datetime.now()
+        date_only = todays_datetime.strftime("%Y-%m-%d")
+        time_only = todays_datetime.strftime("%H:%M:%S")
+        completed_orders_file = Path(".") / "data" / f"completed_orders_{date_only}.csv"
         with open(completed_orders_file, 'w', encoding='utf-8') as orders_status_file:
-            file_header = "timestamp,lname,fname,type,size,toppings\n"
+            file_header = "date,time,lname,fname,type,size,toppings\n"
             orders_status_file.write(file_header)
             while True:
                 sandwich_req_dict = get_sandwich_request()
@@ -610,16 +621,16 @@ def create_sandwiches():
                     f"{sandwich_req_dict['fname']}'.\n"
                 ) # end print()
 
+                toppings_delimited_string = "|".join(sandwich_req_dict["toppings"])
                 completed_orders_output = (
-                    f"{date.today()},"
+                    f"{date_only},"
+                    f"{time_only},"
                     f"{sandwich_req_dict['lname']},"
                     f"{sandwich_req_dict['fname']},"
                     f"{sandwich_req_dict['type']},"
-                    f"{sandwich_req_dict['size']},\n"
+                    f"{sandwich_req_dict['size']},"
+                    f"{toppings_delimited_string}\n"
                 ) # end completed_orders_output 
-                ################################################################
-                # TODO: format 'toppings' list to flat file '|' pipe delimiter #
-                ################################################################
                 orders_status_file.write(completed_orders_output)
 
                 if not is_continue():
