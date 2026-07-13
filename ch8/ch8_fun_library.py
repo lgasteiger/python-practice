@@ -651,3 +651,84 @@ def create_sandwiches():
         ) # end print()
     # end try...except
 # end create_sandwiches()
+        
+def build_profile(applicants_file: Path):
+    """
+    Builds new student applicant user profiles from the flat file data in the
+    'applicant_file' comma delimited flat file
+
+    args:
+        applicants_file: filepath of the new student applicants to the college
+
+    returns:
+        List of dictionaries of student applicant data
+
+    raises:
+        FileNotFoundError: raises an exception if the 'applicants_file' can
+        not be found
+
+        IOError: raises an exception if the student data can not be read
+        from the 'applicants_file' or written to a file processing status
+        output file   
+    """
+    try:
+        todays_datetime = datetime.now()
+        date_only = todays_datetime.strftime("%Y-%m-%d")
+        time_only = todays_datetime.strftime("%H:%M:%S")
+        processed_applicants_file = (
+            Path(".") / "data" / "out_files" / f"processed_applicants_{date_only}.csv"
+        ) # end process_applicants_file
+
+        with open(applicants_file, 'r', encoding='utf-8') as input_file, \
+             open(processed_applicants_file, 'w', encoding='utf-8') as output_file:
+            output_file.write(
+                "process_date,process_time,app_date,lname,fname,email,major,"
+                "minor\n"
+            ) # end write()
+            reader_applicants = csv.DictReader(input_file)
+            for row in reader_applicants:
+                dt_object = (
+                    datetime.strptime(row["timestamp"], '%Y-%m-%dT%H:%M:%S')
+                ) # end dt_object
+
+                extracurrs_lst = row["extra_curriculars"].split("|")
+                extracurrs_str = ", ".join(extracurrs_lst).title()
+                hobbies_lst = row["hobbies"].split("|")
+                hobbies_str = ", ".join(hobbies_lst).title()
+                print(
+                    f"Application processing completed for =>\n"
+                    f"Last name: {row['lname'].title()}\n"
+                    f"First name: {row['fname'].title()}\n"
+                    f"Email: {row['email']}\n"
+                    f"Direct messaging: {row['dm']}\n"
+                    f"Linked-In: {row['linked_in']}\n"
+                    f"Veteran: {row['veteran'].title()}\n"
+                    f"Major: {row['major'].title()}\n"
+                    f"Minor: {row['minor'].title()}\n"    
+                    f"Extracurricular activities: {extracurrs_str}\n"
+                    f"Hobbies: {hobbies_str}\n"
+                ) # end print()
+                output_file.write(
+                    f"{date_only},{time_only},"
+                    f"{dt_object.year}-{dt_object.month}-{dt_object.day},"
+                    f"{row['lname']},{row['fname']},{row['email']},"
+                    f"{row['major']},{row['minor']}\n"
+                ) # end write()
+            # end for
+        # end with
+    except FileNotFoundError as e:
+        print(
+            f"!!!!!sorry, file located at '{applicants_file}' is not found. "
+            f"'{e}'. please try again when you get a chance!!!!!"
+        ) # end print()
+    except IOError as e:
+        print(
+            f"!!!!!sorry, an I/O error occurred, {e}!!!!!"
+        ) # end print()
+    except Exception as e:
+        print(
+            f"!!!!!sorry, there was an unhandled, unexpected error that "
+            f"occurred, '{e}'!!!!!"
+        ) # end print()
+    # end try...except
+# end build_profile()
