@@ -23,56 +23,43 @@ notes:
 """
 from pathlib import Path
 from datetime import datetime
-from ch6.ch6_fun_library import print_dict_elem
+from ch8.ch8_fun_library import build_vehicle
 
-def build_vehicle(
-        type: str, manufacturer: str, model: str, **vehicle_info: dict[str, str]
-    ) -> dict[str, str]:
+def print_vehicle_data(vehicle_data: dict[str, str]):
     """
-    Returns a dictionary of car key/value pairs of car data.
+    Prints the vehicle data collected in the dictionary sorted by the keys
 
     args:
-        type: str is the type of vehicle the vehicle is
-
-        manufacturer: str is the manufacturer name of the vehicle
-
-        model: str is the model name of the vehicle
-
-        **car_info: dict[str, str] is the arbitrary number of dictionary 
-        key/value pairs of vehicle data
+        vehicle_data: dictionary to be printed to the display
 
     returns:
-        dict[str, str]: dictionary of vehicle key/value pairs data
+        None
 
-    raise:
-        FileNotFoundError: raises an exception if the file path can not be
-        resolved
+    raises:
+        IndexError: If an out of range dictionary index is reached
 
-        IOError: raises an exception if vehicle status data can not be written
-        to an output file
+        ValueError: If an unexpected value is encountered
     """
     try:
-        vehicle_info['type'] = type
-        vehicle_info['manufacturer'] = manufacturer
-        vehicle_info['model'] = model
-        return vehicle_info
-    except FileNotFoundError as e:
+        for key, value in sorted(vehicle_data.items(), key=lambda item: item[0]):
+            print(f"key -> {key}, value -> {value}")
+        # end for
+    except IndexError as e:
         print(
-            f"!!!!!Sorry, but the output file path could not be resolved, "
+            f"!!!!!Sorry, but an unexpected dictionary index was encountered, "
             f"{e}!!!!!"
         ) # end print()
-    except IOError as e:
+    except ValueError as e:
         print(
-            f"!!!!!Sorry, but an IOError exception was raised because an "
-            f"error was thrown when writting to the output file, {e}!!!!!"
+            f"!!!!!Sorry, but an unexpected value was encountered, {e}!!!!!"
         ) # end print()
     except Exception as e:
         print(
-            f"!!!!!Sorry, an unhandled, unexpected exception was raised, "
+            f"!!!!!Sorry, an unexpected, unhandled exception was raised, "
             f"{e}!!!!!"
         ) # end print()
-    # end try...except
-# end build_car()
+    # try...except
+# end print_vehicle_data()
 
 ########################
 # Main app starts here #
@@ -80,7 +67,10 @@ def build_vehicle(
 todays_datetime = datetime.now()
 date_only = todays_datetime.strftime("%Y-%m-%d")
 time_only = todays_datetime.strftime("%H:%M:%S")
-print(f"Testing build_vehicle() on {date_only} at {time_only}")
+print(
+    f"**********Testing build_vehicle() on {date_only} at "
+    f"{time_only}**********"
+) # end print()
 vehicle_status_file = (
     Path(".") / "data" / "out_files" / f"vehicle_statuses_{date_only}"
 ) # end vehicle_status_file
@@ -96,7 +86,7 @@ with open(vehicle_status_file, 'w', encoding='utf-8') as out_file:
         ) # end build_vehicle()
     ) # end honda_car_dict
 
-    print_dict_elem(honda_car_dict)
+    print_vehicle_data(honda_car_dict)
     out_file.write(
         f"{date_only},{time_only},car,honda,accord,ca|2011|177655|y\n"
     ) # end write()

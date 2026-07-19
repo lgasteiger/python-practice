@@ -7,7 +7,7 @@ description:
 
 author: L g
 created: 2026-06-02
-last modified: 2026-06-02
+last modified: 2026-06-18
 version: 1.0.0
 
 dependencies:
@@ -25,6 +25,10 @@ from ch6.ch6_fun_library import print_dict_elem
 from pathlib import Path
 from datetime import datetime
 import csv
+
+todays_datetime = datetime.now()
+date_only = todays_datetime.strftime("%Y-%m-%d")
+time_only = todays_datetime.strftime("%H:%M:%S")
 
 def ex_8_2_get_favorite_book():
     """
@@ -405,8 +409,7 @@ def make_pizza(pizza_toppings_file: Path):
     """
     try:
         with open(pizza_toppings_file, 'r', encoding='utf-8') as input_file:
-            todays_date = date.today().strftime("%Y-%m-%d")
-            orders_output_file = Path(".") / "data" / f"completed_orders_from_txt{todays_date}.txt"
+            orders_output_file = Path(".") / "data" / "out_files" / f"completed_orders_from_txt{date_only}.txt"
             with open(orders_output_file, 'w', encoding='utf-8') as output_file:
                 for line in input_file:
                     curr_pizza_order = line.strip()
@@ -435,7 +438,7 @@ def make_pizza(pizza_toppings_file: Path):
         ) # end print()
 # end make_pizza()
         
-def make_pizza_v2(pizza_toppings_file: Path):
+def make_pizza_from_file(pizza_toppings_file: Path):
     """
     Processes pizza orders saved to a flat file delimited by a comma. 
     Displays the status to the screen of each pizza order. 
@@ -457,29 +460,35 @@ def make_pizza_v2(pizza_toppings_file: Path):
         with open(pizza_toppings_file, 'r', encoding='utf-8') as input_file:
             reader_orders = csv.reader(input_file)
             next(reader_orders) # read past header row
-            todays_date = date.today().strftime("%Y-%m-%d")
-            orders_output_file = Path(".") / "data" / f"completed_orders_from_flat{todays_date}.csv"
+            orders_output_file = Path(".") / "data" / "out_files" / f"completed_orders_from_flat{date_only}.csv"
             with open(orders_output_file, 'w', encoding='utf-8') as output_file:    
                 output_file.write(
-                    "datetime,customer_fname,customer_lname,pizza_size,"
+                    "date,time,customer_lname,customer_fname,pizza_size,"
                     "toppings\n")
                 for row in reader_orders:
                     timestamp = row[0]
+                    dt_object = (
+                        datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S')
+                    ) # end dt_object
+
                     lname = row[1]
                     fname = row[2]
                     size = row[3]
                     toppings_list = row[4].split("|")
                     print(
-                        f"completed pizza order: datetime={timestamp}, "
-                        f"customer name={fname} {lname}, "
-                        f"pizza size={size}, "
-                        f"pizza toppings={toppings_list}"
+                        f"completed pizza order:\n"
+                        f"date: {dt_object.year}-{dt_object.month}-{dt_object.day}\n"
+                        f"time: {dt_object.hour}:{dt_object.minute}:{dt_object.second}\n"
+                        f"customer name: {fname} {lname}\n"
+                        f"pizza size: {size}\n"
+                        f"pizza toppings: {toppings_list}\n"
                     ) # end print()
 
                     toppings_string = '|'.join(toppings_list)
                     output_file.write(
-                        f"{timestamp},{fname},{lname},{size},"
-                        f"{toppings_string}\n"
+                        f"{dt_object.year}-{dt_object.month}-{dt_object.day},"
+                        f"{dt_object.hour}:{dt_object.minute}:{dt_object.second},"
+                        f"{lname},{fname},{size},{toppings_string}\n"
                     ) # end write()
                 # end for
             # end with
@@ -499,6 +508,30 @@ def make_pizza_v2(pizza_toppings_file: Path):
             f"{e}!!!!!"
         ) # end print()
 # end make_pizza_v2()
+
+def make_pizza_from_keyboard(size: int, **pizza_ingredients: dict[str, str]
+) -> dict[str, str]:
+    """
+    Makes a pizza based on the pizza ingredients and returns a dictionary of 
+    pizza info.
+
+    args:
+        size: the size of the requested pizza (i.e. 'small', 'medium', 'large',
+              'x-large')
+
+        **pizza_incredients: dictionary of requested pizza toppings and
+                             ingredients
+
+    returns:
+        Dictionary of pizza info containing the size of the pizza and the
+        requested pizza toppings and other ingredients
+
+    raises:
+        None 
+    """
+    pizza_ingredients['size'] = size
+    return pizza_ingredients
+# end make_custom_pizzas
         
 def get_toppings():
     """
@@ -609,7 +642,7 @@ def create_sandwiches():
         todays_datetime = datetime.now()
         date_only = todays_datetime.strftime("%Y-%m-%d")
         time_only = todays_datetime.strftime("%H:%M:%S")
-        completed_orders_file = Path(".") / "data" / f"completed_orders_{date_only}.csv"
+        completed_orders_file = Path(".") / "data" / "out_files" / f"completed_orders_{date_only}.csv"
         with open(completed_orders_file, 'w', encoding='utf-8') as orders_status_file:
             file_header = "date,time,lname,fname,type,size,toppings\n"
             orders_status_file.write(file_header)
@@ -732,3 +765,52 @@ def build_profile(applicants_file: Path):
         ) # end print()
     # end try...except
 # end build_profile()
+        
+def build_vehicle(
+        type: str, manufacturer: str, model: str, **vehicle_info: dict[str, str]
+    ) -> dict[str, str]:
+    """
+    Returns a dictionary of car key/value pairs of car data.
+
+    args:
+        type: str is the type of vehicle the vehicle is
+
+        manufacturer: str is the manufacturer name of the vehicle
+
+        model: str is the model name of the vehicle
+
+        **car_info: dict[str, str] is the arbitrary number of dictionary 
+        key/value pairs of vehicle data
+
+    returns:
+        dict[str, str]: dictionary of vehicle key/value pairs data
+
+    raise:
+        FileNotFoundError: raises an exception if the file path can not be
+        resolved
+
+        IOError: raises an exception if vehicle status data can not be written
+        to an output file
+    """
+    try:
+        vehicle_info['type'] = type
+        vehicle_info['manufacturer'] = manufacturer
+        vehicle_info['model'] = model
+        return vehicle_info
+    except FileNotFoundError as e:
+        print(
+            f"!!!!!Sorry, but the output file path could not be resolved, "
+            f"{e}!!!!!"
+        ) # end print()
+    except IOError as e:
+        print(
+            f"!!!!!Sorry, but an IOError exception was raised because an "
+            f"error was thrown when writting to the output file, {e}!!!!!"
+        ) # end print()
+    except Exception as e:
+        print(
+            f"!!!!!Sorry, an unhandled, unexpected exception was raised, "
+            f"{e}!!!!!"
+        ) # end print()
+    # end try...except
+# end build_vehicle()
