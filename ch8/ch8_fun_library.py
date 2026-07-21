@@ -457,41 +457,39 @@ def make_pizza_from_file(pizza_toppings_file: Path):
         IOError: exception raised when file can not be read or written to
     """
     try:
-        with open(pizza_toppings_file, 'r', encoding='utf-8') as input_file:
-            reader_orders = csv.reader(input_file)
-            next(reader_orders) # read past header row
-            orders_output_file = Path(".") / "data" / "out_files" / f"completed_orders_from_flat{date_only}.csv"
-            with open(orders_output_file, 'w', encoding='utf-8') as output_file:    
+        orders_output_file = Path(".") / "data" / "out_files" / f"completed_orders_from_flat{date_only}.csv"
+        with open(pizza_toppings_file, 'r', encoding='utf-8') as input_file, \
+             open(orders_output_file, 'w', encoding='utf-8') as output_file: 
+            # reader_orders = csv.reader(input_file)
+            # next(reader_orders) # read past header row
+
+            reader_orders = csv.DictReader(input_file)
+            output_file.write(
+                "date,time,customer_lname,customer_fname,pizza_size,"
+                "toppings\n"
+            ) # end write()
+            for row in reader_orders:
+                dt_object = (
+                    datetime.strptime(row['timestamp'], '%Y-%m-%dT%H:%M:%S')
+                ) # end dt_object
+                toppings_list = row['toppings'].split("|")
+                print(
+                    f"completed pizza order:\n"
+                    f"date: {dt_object.year}-{dt_object.month}-{dt_object.day}\n"
+                    f"time: {dt_object.hour}:{dt_object.minute}:{dt_object.second}\n"
+                    f"customer name: {row['fname']} {row['lname']}\n"
+                    f"pizza size: {row['size']}\n"
+                    f"pizza toppings: {toppings_list}\n"
+                ) # end print()
+
+                #toppings_string = '|'.join(toppings_list)
                 output_file.write(
-                    "date,time,customer_lname,customer_fname,pizza_size,"
-                    "toppings\n")
-                for row in reader_orders:
-                    timestamp = row[0]
-                    dt_object = (
-                        datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S')
-                    ) # end dt_object
-
-                    lname = row[1]
-                    fname = row[2]
-                    size = row[3]
-                    toppings_list = row[4].split("|")
-                    print(
-                        f"completed pizza order:\n"
-                        f"date: {dt_object.year}-{dt_object.month}-{dt_object.day}\n"
-                        f"time: {dt_object.hour}:{dt_object.minute}:{dt_object.second}\n"
-                        f"customer name: {fname} {lname}\n"
-                        f"pizza size: {size}\n"
-                        f"pizza toppings: {toppings_list}\n"
-                    ) # end print()
-
-                    toppings_string = '|'.join(toppings_list)
-                    output_file.write(
-                        f"{dt_object.year}-{dt_object.month}-{dt_object.day},"
-                        f"{dt_object.hour}:{dt_object.minute}:{dt_object.second},"
-                        f"{lname},{fname},{size},{toppings_string}\n"
-                    ) # end write()
-                # end for
-            # end with
+                    f"{dt_object.year}-{dt_object.month}-{dt_object.day},"
+                    f"{dt_object.hour}:{dt_object.minute}:{dt_object.second},"
+                    f"{row['lname']},{row['fname']},{row['size']},"
+                    f"{row['toppings']}\n"
+                ) # end write()
+            # end for
         # end with
     except FileNotFoundError as e:
         print(
@@ -507,20 +505,28 @@ def make_pizza_from_file(pizza_toppings_file: Path):
             f"!!!!!sorry, an unexpected, unhandled exception was encountered, "
             f"{e}!!!!!"
         ) # end print()
-# end make_pizza_v2()
+# end make_pizza_from_file()
 
-def make_pizza_from_keyboard(size: int, **pizza_ingredients: dict[str, str]
+def make_pizza_from_keyboard(
+        order_datetime: str, lname: str, fname: str, size: str, 
+        **pizza_order_data: dict[str, str]
 ) -> dict[str, str]:
     """
     Makes a pizza based on the pizza ingredients and returns a dictionary of 
     pizza info.
 
     args:
+        order_datetime: the day and time the pizza order was placed by user
+
+        lname: last name of the user requester
+
+        fname: first name of the user requester
+
         size: the size of the requested pizza (i.e. 'small', 'medium', 'large',
               'x-large')
 
-        **pizza_incredients: dictionary of requested pizza toppings and
-                             ingredients
+        **pizza_order_data: dictionary of requested pizza order including
+                            user and pizza type
 
     returns:
         Dictionary of pizza info containing the size of the pizza and the
@@ -529,10 +535,45 @@ def make_pizza_from_keyboard(size: int, **pizza_ingredients: dict[str, str]
     raises:
         None 
     """
-    pizza_ingredients['size'] = size
-    return pizza_ingredients
-# end make_custom_pizzas
+    pizza_order_data['datetime'] = order_datetime
+    pizza_order_data['lname'] = lname
+    pizza_order_data['fname'] = fname
+    pizza_order_data['size'] = size
+    return pizza_order_data
+# end make_pizza_from_keyboard()
+
+def get_pizza_size():
+    """
+    Prompts for the pizza size and validates that only the 'small', 
+    'medium', 'large', and 'x-large' values are entered
+
+    args:
+        None
+
+    returns:
+        A valid string pizza size
+
+    raises:
+        None
+    """
+    while True:
+        size_input = get_valid_input(
+            "Please enter the size of the pizza you are interested in: "
+        ) # end print()
         
+        if size_input.lower() in { "small", "medium", "large", "x-large" }:
+            break
+        else:
+            print(
+                "!!!!!Sorry, the pizza size was invalid. please only enter "
+                "'small', 'medium', 'large', or 'x-large values!!!!!"
+            ) # end print()
+        # end if
+    # end while
+            
+    return size_input
+# end get_medium_size()
+
 def get_toppings():
     """
     Prompts for sandwich toppings wanted
@@ -642,7 +683,10 @@ def create_sandwiches():
         todays_datetime = datetime.now()
         date_only = todays_datetime.strftime("%Y-%m-%d")
         time_only = todays_datetime.strftime("%H:%M:%S")
-        completed_orders_file = Path(".") / "data" / "out_files" / f"completed_orders_{date_only}.csv"
+        completed_orders_file = (
+            Path(".") / "data" / "out_files" / f"completed_orders_{date_only}.csv"
+        ) # end completed_orders_file
+
         with open(completed_orders_file, 'w', encoding='utf-8') as orders_status_file:
             file_header = "date,time,lname,fname,type,size,toppings\n"
             orders_status_file.write(file_header)
