@@ -23,7 +23,7 @@ notes:
 """
 from pathlib import Path
 from ch6.ch6_fun_library import get_valid_input as get_keyboard_input
-from ch6.ch6_fun_library import print_dict_elem
+from ch6.ch6_fun_library import print_dict_elem, is_numeric
 
 from ch8.ch8_fun_library import make_pizza_from_file, make_pizza_from_keyboard
 from ch8.ch8_fun_library import get_pizza_size, get_toppings
@@ -63,3 +63,9 @@ completed_pizza_order = (
                             ) # end make_pizza_from_keyboard()
 ) # end completed_pizza_order
 print_dict_elem(completed_pizza_order)
+print()
+
+print(
+    "**********Testing from ch6.ch6_fun_library import is_numeric()**********"
+) # end print()
+print(f"Is pizza_size a number? {is_numeric(pizza_size)}")

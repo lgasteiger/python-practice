@@ -7,7 +7,7 @@ description:
 
 author: L g
 created: 2026-06-02
-last modified: 2026-06-18
+last modified: 2026-07-20
 version: 1.0.0
 
 dependencies:
@@ -51,7 +51,7 @@ def ex_8_2_get_favorite_book():
     return user_fav_book    
 # end ex_8_2_get_favorite_book()
     
-def ex_8_2_display_fav_book(title):
+def ex_8_2_display_fav_book(title: str):
     """
     prints to the display screen a message concerning one of the user's
     favorite books.
@@ -71,7 +71,7 @@ def ex_8_2_display_fav_book(title):
     ) # end print()
 # end ex_8_2_display_fav_book()
 
-def ex_8_3_write_shirt(size, text_message):
+def ex_8_3_write_shirt(size: str, text_message: str):
     """
     prints to the display a message summarizing the size of the shirt and the
     message printed on it.
@@ -164,7 +164,7 @@ def ex_8_5_desc_city():
     ) # end print()
 # ex_ch8_5_desc_city()
 
-def get_formatted_name(first_name, last_name, middle_name=""):
+def get_formatted_name(first_name: str, last_name: str, middle_name=""):
     """
     returns the name neatly formatted in the format 'first_name middle_name 
     last_name'. if no middle name is provided then the format will be 
@@ -192,7 +192,8 @@ def get_formatted_name(first_name, last_name, middle_name=""):
     return fullname.title()
 # end get_formatted_name()
 
-def make_album(name, album_title, num_of_songs=None):
+def make_album(name: str, album_title: str, 
+               num_of_songs=None) -> dict[str, str]:
     """
     returns a dictionary with the musician's name, album title and number of
     songs on the album.
@@ -219,7 +220,7 @@ def make_album(name, album_title, num_of_songs=None):
     return music_album_dict
 # end make_album()
 
-def ex_8_7_make_album():
+def ex_8_7_make_album() -> dict[str, str]:
     """
     builds a dictionary describing a music album. prompts for an artist name
     and an album title from the console. then, returns a dictionary containing
@@ -241,7 +242,7 @@ def ex_8_7_make_album():
     return make_album(musician_name, lp_name, songs_count)
 # end ex_8_7_make_album()
 
-def greet_users(names_list):
+def greet_users(names_list: list[str]):
     """
     prints a greeting to the display for each of the folks in the names list.
 
