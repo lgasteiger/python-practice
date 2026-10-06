@@ -79,13 +79,13 @@ class Dog:
         """
         Simulates the current Dog object sitting in response to a command.
         """
-        print(f"The dog named '{self._name}' is now sitting.")
+        print(f"The dog named '{self._name}' is now sitting.\n")
     # end sit()
         
     def roll_over(self):
         """
         Simulates the current Dog object rolling over in response to a command.
         """
-        print(f"The dog named '{self._name}' is rolling over.")
+        print(f"The dog named '{self._name}' is rolling over.\n")
     # end roll_over()
 # end class Dog

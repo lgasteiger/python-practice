@@ -30,3 +30,14 @@ print("**********Test instantiation of a Dog object**********")
 my_dog = Dog('Lucky', 10)
 print(f"My dog's name is '{my_dog.name}'.\n")
 print(f"My dog's age is: '{my_dog.age}'.\n")
+your_dog = Dog('Lucy', 5)
+print(
+    f"Your dog's name is '{your_dog.name}', and she is '{your_dog.age}' " 
+    f"years old.\n"
+) # end print()
+
+print("**********Test Dog methods**********")
+my_dog.sit()
+my_dog.roll_over()
+your_dog.sit()
+your_dog.roll_over()
