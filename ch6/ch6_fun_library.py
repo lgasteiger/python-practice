@@ -7,7 +7,7 @@ description:
 
 author: L g
 created: 2026-01-11
-last modified: 2026-05-18
+last modified: 2026-07-20
 version: 1.0.0
 
 dependencies:
@@ -209,7 +209,7 @@ def get_person_max(person_list):
     # end try...except
 # end get_person_max()
 
-def get_valid_input(prompt):
+def get_valid_input(prompt: str) -> str:
     """
     get non-empty input from user, rejecting blank or whitespace-only entries
 
@@ -246,7 +246,7 @@ def get_valid_input(prompt):
     # end try...except
 # end get_valid_input(prompt)
 
-def is_numeric(keyboard_input):
+def is_numeric(keyboard_input: str) -> bool:
     """
     checks if user input from the keyboard is a number including negative
     and decimal numbers
