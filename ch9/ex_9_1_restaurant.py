@@ -9,7 +9,7 @@ description:
 
 author: LGG
 created: 2026-10-06
-last modified: 2026-10-06
+last modified: 2026-10-29
 version: 1.0.0
 
 dependencies:
@@ -27,7 +27,14 @@ class Restaurant:
     This class represents a Restaurant, and it will model common Restaurant
     behavior and functions. It will store a Restaurants name and cuisine type.
     Also, it will give each instance of a Restaurant the ability to describe
-    the Restaurant and share the open or close for business state.
+    the Restaurant and share the open or close state of the business.
     """
-    
+    def __init__(self, restaurant_name, cuisine_type):
+        """
+        Constructor of class Restaurant that will initialize the resturant
+        name and cuisine type attributes.
+        """
+        self._restaurant_name = restaurant_name
+        self._cuisine_type = cuisine_type
+    # end __init__()
 # end Restaurant class
